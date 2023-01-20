@@ -1,0 +1,8 @@
+* text=auto
+
+*.asmdef		-binary
+*.asset              	-binary
+*.mat                	-binary
+*.meta               	-binary
+*.prefab             	-binary
+*.unity              	-binary
