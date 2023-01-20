@@ -1,50 +1,52 @@
-using JK.Tweening;
 using System;
 using UnityEngine;
 
-public class IntTween : TweenBase
+namespace JK.Tweening
 {
-    private readonly Action<int> _callback;
-    private readonly int _startValue;
-    private readonly int _endValue;
-    private readonly int _interval;
-    private int _intervalProgress;
-
-    public IntTween (int startingValue, int endValue, float duration, Action<int> callback)
+    public class IntTween : TweenBase
     {
-        _startValue = startingValue;
-        _endValue = endValue;
-        _callback = callback;
-        _duration = duration;
-    }
+        private readonly Action<int> _callback;
+        private readonly int _startValue;
+        private readonly int _endValue;
+        private readonly int _interval;
+        private int _intervalProgress;
 
-    public IntTween (int startingValue, int endValue, float duration, int increment, Action<int> callback)
-    {
-        _startValue = startingValue;
-        _endValue = endValue;
-        _callback = callback;
-        _duration = duration;
-        _interval = increment;
-    }
-
-    public override void Reset ()
-    {
-        _callback.Invoke (_startValue);
-        BaseReset ();
-    }
-
-    public override void Update (float deltaTime)
-    {
-        if (TryProgress (deltaTime, out _))
+        public IntTween (int startingValue, int endValue, float duration, Action<int> callback)
         {
-            var value = Mathf.Lerp (_startValue, _endValue, _normalizedProgress);
+            _startValue = startingValue;
+            _endValue = endValue;
+            _callback = callback;
+            _duration = duration;
+        }
 
-            if (Mathf.Abs (value - _startValue) > _intervalProgress + _interval)
+        public IntTween (int startingValue, int endValue, float duration, int increment, Action<int> callback)
+        {
+            _startValue = startingValue;
+            _endValue = endValue;
+            _callback = callback;
+            _duration = duration;
+            _interval = increment;
+        }
+
+        public override void Reset ()
+        {
+            _callback.Invoke (_startValue);
+            BaseReset ();
+        }
+
+        public override void Update (float deltaTime)
+        {
+            if (TryProgress (deltaTime, out _))
             {
-                _intervalProgress += _interval;
+                var value = Mathf.Lerp (_startValue, _endValue, _normalizedProgress);
 
-                var finalValue = _startValue <= _endValue ? Mathf.FloorToInt (value) : Mathf.CeilToInt (value);
-                _callback.Invoke (finalValue);
+                if (Mathf.Abs (value - _startValue) > _intervalProgress + _interval)
+                {
+                    _intervalProgress += _interval;
+
+                    var finalValue = _startValue <= _endValue ? Mathf.FloorToInt (value) : Mathf.CeilToInt (value);
+                    _callback.Invoke (finalValue);
+                }
             }
         }
     }
