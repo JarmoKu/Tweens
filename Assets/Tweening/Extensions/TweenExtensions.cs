@@ -128,7 +128,7 @@ namespace JK.Tweening
         }
         #endregion
 
-        #region Float
+        #region Numbers
         public static FloatTween TweenNumber (this float startValue, float endValue, float duration, Action<float> callback)
         {
             return new FloatTween (startValue, endValue, duration, callback); ;
