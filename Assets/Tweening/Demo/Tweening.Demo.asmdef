@@ -1,0 +1,15 @@
+{
+    "name": "Tweening.Demo",
+    "references": [
+        "GUID:524e2080cda627f408b468f69885814a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
