@@ -14,8 +14,6 @@ namespace JK.Tweening
             _startScale = transform.localScale;
             _endScale = endScale;
             _duration = duration;
-
-            TweenManager.AddTween (this);
         }
 
         public override void Update (float deltaTime)

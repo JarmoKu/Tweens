@@ -16,8 +16,6 @@ namespace JK.Tweening
             _targetRotation = targetRotation;
             _duration = duration;
             _space = space;
-
-            TweenManager.AddTween (this);
         }
 
         public override void Update (float deltaTime)

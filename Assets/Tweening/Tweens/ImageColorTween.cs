@@ -20,8 +20,6 @@ namespace JK.Tweening
             _end = end;
             _duration = duration;
             _useGradient = false;
-
-            TweenManager.AddTween (this);
         }
 
         public ImageColorTween (Image image, Gradient gradient, float duration)

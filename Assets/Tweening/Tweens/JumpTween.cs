@@ -20,8 +20,6 @@ namespace JK.Tweening
             _endPosition = end;
             _duration = duration;
             _space = space;
-
-            TweenManager.AddTween (this);
         }
 
         public override void Reset ()
