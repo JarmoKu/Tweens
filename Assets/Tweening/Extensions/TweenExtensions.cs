@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace JK.Tweening
@@ -124,6 +125,28 @@ namespace JK.Tweening
         public static PunchScaleTween PunchScale (this Transform transform, Vector3 targetScale, float duration)
         {
             return new PunchScaleTween (transform, targetScale, duration);
+        }
+        #endregion
+
+        #region Float
+        public static FloatTween TweenNumber (this float startValue, float endValue, float duration, Action<float> callback)
+        {
+            return new FloatTween (startValue, endValue, duration, callback); ;
+        }
+
+        public static FloatTween TweenNumber (this float startValue, float endValue, float duration, float increment, Action<float> callback)
+        {
+            return new FloatTween (startValue, endValue, duration, increment, callback); ;
+        }
+
+        public static IntTween TweenNumber (this int startValue, int endValue, float duration, Action<int> callback)
+        {
+            return new IntTween (startValue, endValue, duration, callback); ;
+        }
+
+        public static IntTween TweenNumber (this int startValue, int endValue, float duration, int increment, Action<int> callback)
+        {
+            return new IntTween (startValue, endValue, duration, increment, callback); ;
         }
         #endregion
     }
