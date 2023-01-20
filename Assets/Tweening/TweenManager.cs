@@ -5,25 +5,17 @@ namespace JK.Tweening
 {
     public class TweenManager : MonoBehaviour
     {
-        private static TweenManager Instance;
         public static float CustomTimeScale { get; private set; } = 1f;
+
+        private static TweenManager Instance;
         private static readonly List<TweenBase> _tweens = new ();
-
-        private void Awake ()
-        {
-            Debug.Assert (!Instance, $"More than one instance of {GetType ()}", Instance);
-            Instance = this;
-        }
-
-        private void OnDestroy ()
-        {
-            _tweens.Clear ();
-            CustomTimeScale = 1f;
-            Instance = default;
-        }
+        private static int LatestFrameCount;
 
         private void Update ()
         {
+            if (UpdateHasBeenCalledThisFrame ())
+                return;
+
             for (int i = 0; i < _tweens.Count; i++)
             {
                 if (_tweens[i].IsPlaying)
@@ -33,6 +25,9 @@ namespace JK.Tweening
 
         public static void AddTween (TweenBase tween)
         {
+            if (Instance == default)
+                CreateInstance ();
+
             if (!_tweens.Contains (tween))
                 _tweens.Add (tween);
         }
@@ -51,6 +46,28 @@ namespace JK.Tweening
         public static void ResetCustomTimescale ()
         {
             CustomTimeScale = 1f;
+        }
+
+        private static void CreateInstance ()
+        {
+            Instance = new GameObject ("Tween Manager").AddComponent<TweenManager> ();
+            Instance.enabled = true;
+
+            DontDestroyOnLoad (Instance);
+        }
+
+        private bool UpdateHasBeenCalledThisFrame ()
+        {
+            if (LatestFrameCount.Equals (Time.frameCount))
+            {
+                Debug.LogWarning ("Update is being called more than once per frame. " +
+                    "Make sure there is only one TweenManager instance");
+
+                return true;
+            }
+
+            LatestFrameCount = Time.frameCount;
+            return false;
         }
     }
 }
