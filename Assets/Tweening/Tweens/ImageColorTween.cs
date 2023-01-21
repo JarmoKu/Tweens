@@ -29,8 +29,6 @@ namespace JK.Tweening
             _gradient = gradient;
             _duration = duration;
             _useGradient = true;
-
-            TweenManager.AddTween (this);
         }
 
         public override void Reset ()
