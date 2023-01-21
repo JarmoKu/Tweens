@@ -3,43 +3,46 @@
 namespace JK.Tweening
 {
     [ExecuteAlways]
-    public class TweenBehaviour : MonoBehaviour
+    public class TweenBehaviour : TransformTweenBehaviourBase
     {
-        [SerializeField] private TweenClass m_tweenClass = default;
-        [SerializeField] private TweenType m_tweenType = default;
-        [SerializeField] private Space m_space = default;
+        #region PropertyNames for custom editor
+        public static string ArcPeakPropertyName => nameof (m_arcPeakPosition);
+        public static string TweenClassPropertyName => nameof (m_tweenClass);
+        #endregion
 
-        [SerializeField] private EaseType m_easeType = default;
-        [SerializeField] private float m_duration = default;
-        [SerializeField] private Vector3 m_startPosition = default;
-        [SerializeField] private Vector3 m_arcPeakPosition = default;
-        [SerializeField] private Vector3 m_endPosition = default;
+        public void SetTweenClass (TweenClass tweenClass) => m_tweenClass = tweenClass;
 
-        [SerializeField] private LoopType m_loopType = default;
-        [SerializeField] private int m_loopCount = default;
-        [SerializeField] private float m_loopDelay = 1f;
+        [SerializeField] private TweenClass m_tweenClass;
+        [SerializeField] private Vector3 m_arcPeakPosition;
 
-        private TweenBase tween;
-
-        private void OnEnable ()
+        public override void Play ()
         {
-            Play ();
+            ActiveTween = GetTween ();
+            base.Play ();
         }
 
-        public void Play ()
+        public override void Stop ()
         {
-            tween = GetTween ();
+            if (ActiveTween == null)
+            {
+                switch (m_tweenClass)
+                {
+                    case TweenClass.Move:
+                        transform.SetPosition (StartVector, TweeningSpace);
+                        break;
+                    case TweenClass.Rotate:
+                        transform.SetRotation (StartVector, TweeningSpace);
+                        break;
+                    case TweenClass.Scale:
+                        transform.localScale = StartVector;
+                        break;
+                    case TweenClass.Jump:
+                        transform.SetPosition (StartVector, TweeningSpace);
+                        break;
+                }
+            }
 
-            tween.SetLoopDelay (m_loopDelay);
-            tween.SetLoops (m_loopCount, m_loopType);
-            tween.SetEase (m_easeType);
-
-            tween.Play ();
-        }
-
-        public void Stop ()
-        {
-
+            base.Stop ();
         }
 
         private TweenBase GetTween ()
@@ -47,13 +50,13 @@ namespace JK.Tweening
             switch (m_tweenClass)
             {
                 case TweenClass.Move:
-                    return new MoveTween (transform, StartPosition (), EndPosition (), m_duration);
+                    return new MoveTween (transform, StartPosition (), EndPosition (), Duration);
                 case TweenClass.Rotate:
-                    return new RotateTween (transform, StartPosition (), EndPosition (), m_duration);
+                    return new RotateTween (transform, StartPosition (), EndPosition (), Duration);
                 case TweenClass.Scale:
-                    return new ScaleTween (transform, StartPosition (), EndPosition (), m_duration);
+                    return new ScaleTween (transform, StartPosition (), EndPosition (), Duration);
                 case TweenClass.Jump:
-                    return new JumpTween (transform, StartPosition (), ArcTopPosition (), EndPosition (), m_duration);
+                    return new JumpTween (transform, StartPosition (), ArcTopPosition (), EndPosition (), Duration);
                 default:
                     return null;
             }
@@ -61,14 +64,14 @@ namespace JK.Tweening
 
         private Vector3 StartPosition ()
         {
-            switch (m_tweenType)
+            switch (TweenType)
             {
                 case TweenType.FromTo:
-                    return m_space.Equals (Space.World) ? m_startPosition : transform.InverseTransformPoint (m_startPosition);
+                    return TweeningSpace.Equals (Space.World) ? StartVector : transform.InverseTransformPoint (StartVector);
                 case TweenType.From:
-                    return m_space.Equals (Space.World) ? m_startPosition : transform.InverseTransformPoint (m_startPosition);
+                    return TweeningSpace.Equals (Space.World) ? StartVector : transform.InverseTransformPoint (StartVector);
                 case TweenType.To:
-                    return m_space.Equals (Space.World) ? transform.position : transform.localPosition;
+                    return TweeningSpace.Equals (Space.World) ? transform.position : transform.localPosition;
                 default:
                     return Vector3.zero;
             }
@@ -76,14 +79,14 @@ namespace JK.Tweening
 
         private Vector3 EndPosition ()
         {
-            switch (m_tweenType)
+            switch (TweenType)
             {
                 case TweenType.FromTo:
-                    return m_space.Equals (Space.World) ? m_endPosition : transform.InverseTransformPoint (m_endPosition);
+                    return TweeningSpace.Equals (Space.World) ? EndVector : transform.InverseTransformPoint (EndVector);
                 case TweenType.From:
-                    return m_space.Equals (Space.World) ? transform.position : transform.localPosition;
+                    return TweeningSpace.Equals (Space.World) ? transform.position : transform.localPosition;
                 case TweenType.To:
-                    return m_space.Equals (Space.World) ? m_endPosition : transform.InverseTransformPoint (m_endPosition);
+                    return TweeningSpace.Equals (Space.World) ? EndVector : transform.InverseTransformPoint (EndVector);
                 default:
                     return Vector3.zero;
             }
@@ -91,7 +94,7 @@ namespace JK.Tweening
 
         private Vector3 ArcTopPosition ()
         {
-            return m_space.Equals (Space.World) ? m_arcPeakPosition : transform.InverseTransformPoint (m_arcPeakPosition);
+            return TweeningSpace.Equals (Space.World) ? m_arcPeakPosition : transform.InverseTransformPoint (m_arcPeakPosition);
         }
     }
 }

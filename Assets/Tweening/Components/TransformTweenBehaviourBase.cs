@@ -4,13 +4,17 @@ namespace JK.Tweening
 {
     public abstract class TransformTweenBehaviourBase : MonoBehaviour
     {
-
         #region PropertyNames for custom editor
+#if UNITY_EDITOR
         public static string TargetSelfPropertyName => nameof (m_targetSelf);
         public static string TargetTransformPropertyName => nameof (m_targetTransform);
         public static string LoopCountPropertyName => nameof (m_loopCount);
         public static string LoopTypePropertyName => nameof (m_loopType);
         public static string LoopDelayPropertyName => nameof (m_loopDelay);
+        public static string TweenTypePropertyName => nameof (m_tweenType);
+        public static string StartPropertyName => nameof (m_start);
+        public static string EndPropertyName => nameof (m_end);
+#endif
         #endregion
 
         [SerializeField] private bool m_targetSelf = true;
@@ -18,6 +22,7 @@ namespace JK.Tweening
         [Space]
 
         [SerializeField] private PlayOn m_playOn;
+        [SerializeField] private TweenType m_tweenType;
         [Space]
 
         [SerializeField] private Space m_space;
@@ -33,6 +38,14 @@ namespace JK.Tweening
         [Min (0f)]
         [SerializeField] private float m_loopDelay;
 
+        [Space]
+        [SerializeField] private Vector3 m_start;
+        [Space]
+        [SerializeField] private Vector3 m_end;
+
+        public Vector3 StartVector { get => m_start; protected set => m_start = value; }
+        public Vector3 EndVector { get => m_end; protected set => m_end = value; }
+        protected TweenType TweenType => m_tweenType;
         protected TweenBase ActiveTween;
         protected float Duration => m_duration;
         protected Space TweeningSpace => m_space;

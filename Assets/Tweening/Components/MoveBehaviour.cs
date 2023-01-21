@@ -4,13 +4,24 @@ namespace JK.Tweening
 {
     public class MoveBehaviour : TransformTweenBehaviourBase
     {
-        [Space]
-        [SerializeField] private Vector3 m_startPosition;
-        [SerializeField] private Vector3 m_endPosition;
-
         public override void Play ()
         {
-            ActiveTween = TargetTransform.MoveFromTo (m_startPosition, m_endPosition, Duration, TweeningSpace);
+            switch (base.TweenType)
+            {
+                case TweenType.FromTo:
+                    ActiveTween = TargetTransform.MoveFromTo (StartVector, EndVector, Duration, TweeningSpace);
+                    break;
+                case TweenType.From:
+                    ActiveTween = TargetTransform.MoveFrom (StartVector, Duration, TweeningSpace);
+                    break;
+                case TweenType.To:
+                    ActiveTween = TargetTransform.MoveTo (EndVector, Duration, TweeningSpace);
+                    break;
+                default:
+                    Debug.LogError ("No tween type found");
+                    break;
+            }
+
             base.Play ();
         }
 
@@ -18,7 +29,7 @@ namespace JK.Tweening
         {
             if (ActiveTween == null)
             {
-                transform.position = m_startPosition;
+                transform.position = StartVector;
             }
 
             base.Stop ();

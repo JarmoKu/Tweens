@@ -7,29 +7,39 @@ namespace JK.Tweening
     [CustomEditor (typeof (TransformTweenBehaviourBase), true)]
     public class TransformTweenBehaviourBaseEditor : Editor
     {
+        private TweenClass _tweenClass;
+
         private readonly List<string> _propertiesToHide = new ();
         private readonly string _targetProperty = TransformTweenBehaviourBase.TargetTransformPropertyName;
+        private readonly string _startProperty = TransformTweenBehaviourBase.StartPropertyName;
+        private readonly string _endProperty = TransformTweenBehaviourBase.EndPropertyName;
 
         private readonly string[] _loopProperties = new string[2] 
         { 
-            TransformTweenBehaviourBase.LoopTypePropertyName, 
+            TransformTweenBehaviourBase.LoopCountPropertyName, 
             TransformTweenBehaviourBase.LoopDelayPropertyName 
         };
 
         public override void OnInspectorGUI ()
         {
-            var tweenBehaviour = (TransformTweenBehaviourBase)target;
-            SerializedObject serializedObject = new (tweenBehaviour);
+            var transformTweenBehaviour = (TransformTweenBehaviourBase)target;
+            SerializedObject serializedObject = new (transformTweenBehaviour);
 
-            var loopCount = serializedObject.FindProperty (TransformTweenBehaviourBase.LoopCountPropertyName).intValue;
-            var targetSelf = serializedObject.FindProperty (TransformTweenBehaviourBase.TargetSelfPropertyName).boolValue;
+            if (transformTweenBehaviour is TweenBehaviour tweenBehaviour)
+            {
+                TweenBehaviourGUI (transformTweenBehaviour, tweenBehaviour);
+                EditorGUILayout.Space ();
+            }
 
-            if (loopCount == 0)
-                _propertiesToHide.AddRange (_loopProperties);
+            SelectPropertiesToHide ();
 
-            if (targetSelf)
-                _propertiesToHide.Add (_targetProperty);
+            DrawInspector (transformTweenBehaviour);
 
+            _propertiesToHide.Clear ();
+        }
+
+        private void DrawInspector (TransformTweenBehaviourBase transformTweenBehaviour)
+        {
             if (_propertiesToHide.Count > 0)
             {
                 serializedObject.Update ();
@@ -41,19 +51,60 @@ namespace JK.Tweening
                 DrawDefaultInspector ();
             }
 
-            _propertiesToHide.Clear ();
-
             EditorGUILayout.Space ();
 
             EditorGUILayout.BeginHorizontal ();
 
             if (GUILayout.Button ("Play"))
-                tweenBehaviour.Play ();
+                transformTweenBehaviour.Play ();
 
             if (GUILayout.Button ("Stop"))
-                tweenBehaviour.Stop ();
+                transformTweenBehaviour.Stop ();
 
             EditorGUILayout.EndHorizontal ();
+        }
+
+        private void SelectPropertiesToHide ()
+        {
+            var tweenType = (TweenType)serializedObject.FindProperty (
+                TransformTweenBehaviourBase.TweenTypePropertyName).enumValueIndex;
+
+            if (tweenType.Equals (TweenType.From))
+            {
+                _propertiesToHide.Add (_endProperty);
+            }
+            else if (tweenType.Equals (TweenType.To))
+            {
+                _propertiesToHide.Add (_startProperty);
+            }
+
+            var loopType = (LoopType)serializedObject.FindProperty (
+                TransformTweenBehaviourBase.LoopTypePropertyName).intValue;
+
+            if (loopType.Equals (LoopType.None))
+                _propertiesToHide.AddRange (_loopProperties);
+
+            var targetSelf = serializedObject.FindProperty (
+                TransformTweenBehaviourBase.TargetSelfPropertyName).boolValue;
+
+            if (targetSelf)
+                _propertiesToHide.Add (_targetProperty);
+
+        }
+
+        private void TweenBehaviourGUI (TransformTweenBehaviourBase transformTweenBehaviour, TweenBehaviour tweenBehaviour)
+        {
+            SerializedObject serializedObject1 = new (transformTweenBehaviour);
+            var tweenClass = (TweenClass)serializedObject1.FindProperty (
+                TweenBehaviour.TweenClassPropertyName).enumValueIndex;
+
+            if (!tweenClass.Equals (TweenClass.Jump))
+                _propertiesToHide.Add (TweenBehaviour.ArcPeakPropertyName);
+
+            _tweenClass = (TweenClass)EditorGUILayout.EnumFlagsField ("Tween Class", _tweenClass);
+            tweenBehaviour.SetTweenClass (_tweenClass);
+
+            _propertiesToHide.Add (TweenBehaviour.TweenClassPropertyName);
         }
     }
 }

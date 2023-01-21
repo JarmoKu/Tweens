@@ -4,9 +4,26 @@ using UnityEngine.UI;
 namespace JK.Tweening
 {
     [RequireComponent (typeof (Image))]
-    public abstract class ImageTweenBehaviour : MonoBehaviour
+    public class ImageTweenBehaviour : MonoBehaviour
     {
+        #region PropertyNames for custom editor
+#if UNITY_EDITOR
+        public static string TargetImagePropertyName => nameof (m_attachedImage);
+        public static string LoopCountPropertyName => nameof (m_loopCount);
+        public static string LoopDelayPropertyName => nameof (m_loopDelay);
+        public static string TweenTypePropertyName => nameof (m_tweenType);
+        public static string StartPropertyName => nameof (m_startColor);
+        public static string EndPropertyName => nameof (m_endColor);
+        public static string GradientPropertyName => nameof (m_gradient);
+#endif
+        #endregion
+
+        [SerializeField] private bool m_targetSelf;
+        [SerializeField] private Image m_attachedImage;
+        [Space]
+
         [SerializeField] private PlayOn m_playOn;
+        [SerializeField] private ImageTweenType m_tweenType;
         [Space]
 
         [SerializeField] private EaseType m_easeType;
@@ -16,12 +33,14 @@ namespace JK.Tweening
         [SerializeField] private int m_loopCount;
         [SerializeField] private float m_loopDelay;
 
-        [HideInInspector]
-        [SerializeField] private Image m_attachedImage;
+        [Space]
+        [SerializeField] private Color m_startColor;
+        [SerializeField] private Color m_endColor;
 
-        protected TweenBase ActiveTween;
+        [Space]
+        [SerializeField] private Gradient m_gradient;
 
-        protected float Duration => m_duration;
+        private TweenBase ActiveTween;
 
         private void Start ()
         {
@@ -64,16 +83,35 @@ namespace JK.Tweening
 
         public virtual void Play ()
         {
+            switch (m_tweenType)
+            {
+                case ImageTweenType.FromTo:
+                    ActiveTween = m_attachedImage.ColorFromTo (m_startColor, m_endColor, m_duration);
+                    break;
+                case ImageTweenType.From:
+                    ActiveTween = m_attachedImage.ColorFrom (m_startColor, m_duration);
+                    break;
+                case ImageTweenType.To:
+                    ActiveTween = m_attachedImage.ColorTo (m_endColor, m_duration);
+                    break;
+                case ImageTweenType.Gradient:
+                    ActiveTween = m_attachedImage.ColorThroughGradient (m_gradient, m_duration);
+                    break;
+            }
+
             ActiveTween.SetLoops (m_loopCount, m_loopType);
             ActiveTween.SetLoopDelay (m_loopDelay);
             ActiveTween.SetEase (m_easeType);
 
-            ActiveTween.Play ();
-
 #if UNITY_EDITOR
             if (!Application.isPlaying)
+            {
                 TweenPreviewUpdater.StartPreviev (ActiveTween);
+                return;
+            }
 #endif
+
+            ActiveTween.Play ();
         }
 
         protected Image GetImage ()
@@ -86,8 +124,10 @@ namespace JK.Tweening
 
         private void OnValidate ()
         {
-            if (!m_attachedImage)
-                m_attachedImage = transform.GetComponent<Image> ();
+            if (m_targetSelf)
+            {
+                m_attachedImage = GetComponent<Image> ();
+            }
         }
     }
 }

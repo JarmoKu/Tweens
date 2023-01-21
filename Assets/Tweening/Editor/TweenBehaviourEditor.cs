@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace JK.Tweening
 {
-    [CustomEditor (typeof (TweenBehaviour), true)]
+    /*[CustomEditor (typeof (TweenBehaviour), true)]
     public class TweenBehaviourEditor : Editor
     {
         public override void OnInspectorGUI ()
@@ -18,12 +18,12 @@ namespace JK.Tweening
                 tweenBehaviour.Play ();
             }
 
-            if (GUILayout.Button ("Stop"))
+            if (GUILayout.Button ("Stopppp"))
             {
                 tweenBehaviour.Stop ();
             }
 
             EditorGUILayout.EndHorizontal ();
         }
-    }
+    }*/
 }

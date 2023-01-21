@@ -4,13 +4,24 @@ namespace JK.Tweening
 {
     public class RotateBehaviour : TransformTweenBehaviourBase
     {
-        [Space]
-        [SerializeField] private Vector3 m_startRotation;
-        [SerializeField] private Vector3 m_endRotation;
-
         public override void Play ()
         {
-            ActiveTween = TargetTransform.RotateFromTo (m_startRotation, m_endRotation, Duration, TweeningSpace);
+            switch (base.TweenType)
+            {
+                case TweenType.FromTo:
+                    ActiveTween = TargetTransform.RotateFromTo (StartVector, EndVector, Duration, TweeningSpace);
+                    break;
+                case TweenType.From:
+                    ActiveTween = TargetTransform.RotateFrom (StartVector, Duration, TweeningSpace);
+                    break;
+                case TweenType.To:
+                    ActiveTween = TargetTransform.RotateTo (EndVector, Duration, TweeningSpace);
+                    break;
+                default:
+                    Debug.LogError ("No tween type found");
+                    break;
+            }
+
             base.Play ();
         }
 
@@ -18,7 +29,7 @@ namespace JK.Tweening
         {
             if (ActiveTween == null)
             {
-                transform.position = m_startRotation;
+                transform.position = StartVector;
             }
 
             base.Stop ();

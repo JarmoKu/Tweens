@@ -4,16 +4,29 @@ namespace JK.Tweening
 {
     public class JumpBehaviour : TransformTweenBehaviourBase
     {
-        [Space]
-        [SerializeField] private Vector3 m_startPosition;
-        [SerializeField] private Vector3 m_endPosition;
         [SerializeField] private Vector3 m_upDirection;
         [SerializeField] private float m_height;
 
         public override void Play ()
         {
-            ActiveTween = TargetTransform.JumpFromTo (
-                m_startPosition, m_endPosition, m_height, Duration, m_upDirection, TweeningSpace);
+            switch (base.TweenType)
+            {
+                case TweenType.FromTo:
+                    ActiveTween = TargetTransform.JumpFromTo (
+                        StartVector, EndVector, m_height, Duration, m_upDirection, TweeningSpace);
+                    break;
+                case TweenType.From:
+                    ActiveTween = TargetTransform.JumpFrom (
+                        StartVector, m_height, Duration, m_upDirection, TweeningSpace);
+                    break;
+                case TweenType.To:
+                    ActiveTween = TargetTransform.JumpTo (
+                        EndVector, m_height, Duration, m_upDirection, TweeningSpace);
+                    break;
+                default:
+                    Debug.LogError ("No tween type found");
+                    break;
+            }
 
             base.Play ();
         }
@@ -21,7 +34,7 @@ namespace JK.Tweening
         public override void Stop ()
         {
             if (ActiveTween == null)
-                transform.position = m_startPosition;
+                transform.position = StartVector;
 
             base.Stop ();
         }
