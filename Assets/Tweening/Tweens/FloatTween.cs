@@ -11,6 +11,13 @@ namespace JK.Tweening
         private readonly float _interval;
         private float _intervalProgress;
 
+        public FloatTween (float startingValue, float endValue, float duration)
+        {
+            _startValue = startingValue;
+            _endValue = endValue;
+            _duration = duration;
+        }
+
         public FloatTween (float startingValue, float endValue, float duration, Action<float> callback)
         {
             _startValue = startingValue;
@@ -30,7 +37,6 @@ namespace JK.Tweening
 
         public override void Reset ()
         {
-            _callback.Invoke (_startValue);
             BaseReset ();
         }
 
@@ -41,7 +47,8 @@ namespace JK.Tweening
                 var value = Mathf.Lerp (_startValue, _endValue, _normalizedProgress);
                 if (_interval == default)
                 {
-                    _callback.Invoke (value);
+                    if (_callback != null)
+                        _callback?.Invoke (value);
                 }
                 else
                 {
@@ -49,7 +56,9 @@ namespace JK.Tweening
                     if (nearestMultipleOfInterval != _intervalProgress)
                     {
                         _intervalProgress = nearestMultipleOfInterval;
-                        _callback.Invoke (_intervalProgress);
+
+                        if (_callback != null)
+                            _callback?.Invoke (_intervalProgress);
                     }
                 }
             }
