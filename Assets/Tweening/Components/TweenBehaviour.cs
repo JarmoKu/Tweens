@@ -29,16 +29,16 @@ namespace JK.Tweening
                 switch (m_tweenClass)
                 {
                     case TweenClass.Move:
-                        transform.SetPosition (StartVector, TweeningSpace);
+                        transform.SetPosition (OriginalVector, TweeningSpace);
                         break;
                     case TweenClass.Rotate:
-                        transform.SetRotation (StartVector, TweeningSpace);
+                        transform.SetRotation (OriginalVector, TweeningSpace);
                         break;
                     case TweenClass.Scale:
-                        transform.localScale = StartVector;
+                        transform.localScale = OriginalVector;
                         break;
                     case TweenClass.Jump:
-                        transform.SetPosition (StartVector, TweeningSpace);
+                        transform.SetPosition (OriginalVector, TweeningSpace);
                         break;
                 }
             }
