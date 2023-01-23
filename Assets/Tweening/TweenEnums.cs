@@ -11,7 +11,10 @@ public enum TweenClass
     Move,
     Rotate,
     Scale,
-    Jump
+    Jump,
+    PunchPosition,
+    PunchRotation,
+    PunchScale
 }
 
 public enum TweenType

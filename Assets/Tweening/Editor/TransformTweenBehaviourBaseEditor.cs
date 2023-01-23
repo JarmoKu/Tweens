@@ -28,7 +28,7 @@ namespace JK.Tweening
             if (transformTweenBehaviour is TweenBehaviour tweenBehaviour)
             {
                 TweenBehaviourGUI (transformTweenBehaviour, tweenBehaviour);
-                EditorGUILayout.Space ();
+                //EditorGUILayout.Space ();
             }
 
             SelectPropertiesToHide ();
@@ -40,6 +40,18 @@ namespace JK.Tweening
 
         private void DrawInspector (TransformTweenBehaviourBase transformTweenBehaviour)
         {
+            EditorGUILayout.BeginHorizontal ();
+
+            if (GUILayout.Button ("Play"))
+                transformTweenBehaviour.Play ();
+
+            if (GUILayout.Button ("Stop"))
+                transformTweenBehaviour.Stop ();
+
+            EditorGUILayout.EndHorizontal ();
+
+            EditorGUILayout.Space ();
+
             if (_propertiesToHide.Count > 0)
             {
                 serializedObject.Update ();
@@ -51,7 +63,7 @@ namespace JK.Tweening
                 DrawDefaultInspector ();
             }
 
-            EditorGUILayout.Space ();
+            /*EditorGUILayout.Space ();
 
             EditorGUILayout.BeginHorizontal ();
 
@@ -61,7 +73,7 @@ namespace JK.Tweening
             if (GUILayout.Button ("Stop"))
                 transformTweenBehaviour.Stop ();
 
-            EditorGUILayout.EndHorizontal ();
+            EditorGUILayout.EndHorizontal ();*/
         }
 
         private void SelectPropertiesToHide ()
@@ -101,10 +113,17 @@ namespace JK.Tweening
             if (!tweenClass.Equals (TweenClass.Jump))
                 _propertiesToHide.Add (TweenBehaviour.ArcPeakPropertyName);
 
-            _tweenClass = (TweenClass)EditorGUILayout.EnumFlagsField ("Tween Class", _tweenClass);
+            _tweenClass = (TweenClass)EditorGUILayout.EnumPopup ("Tween Class", _tweenClass);//
             tweenBehaviour.SetTweenClass (_tweenClass);
 
             _propertiesToHide.Add (TweenBehaviour.TweenClassPropertyName);
+
+            if (_tweenClass.Equals (TweenClass.PunchPosition) || 
+                _tweenClass.Equals (TweenClass.PunchRotation) || 
+                _tweenClass.Equals (TweenClass.PunchScale))
+            {
+                _propertiesToHide.Add (_startProperty);
+            }
         }
     }
 }

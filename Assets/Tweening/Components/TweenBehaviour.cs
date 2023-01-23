@@ -51,13 +51,19 @@ namespace JK.Tweening
             switch (m_tweenClass)
             {
                 case TweenClass.Move:
-                    return new MoveTween (transform, StartPosition (), EndPosition (), Duration);
+                    return TargetTransform.MoveFromTo (StartPosition (), EndPosition (), Duration);
                 case TweenClass.Rotate:
-                    return new RotateTween (transform, StartPosition (), EndPosition (), Duration);
+                    return TargetTransform.RotateFromTo (StartPosition (), EndPosition (), Duration);
                 case TweenClass.Scale:
-                    return new ScaleTween (transform, StartPosition (), EndPosition (), Duration);
+                    return TargetTransform.ScaleFromTo (StartPosition (), EndPosition (), Duration);
                 case TweenClass.Jump:
-                    return new JumpTween (transform, StartPosition (), ArcTopPosition (), EndPosition (), Duration);
+                    return TargetTransform.JumpFromTo (StartPosition (), ArcTopPosition (), EndPosition (), Duration);
+                case TweenClass.PunchPosition:
+                    return TargetTransform.PunchPosition (EndPosition (), Duration, TweeningSpace);
+                case TweenClass.PunchRotation:
+                    return TargetTransform.PunchRotation (EndPosition (), Duration, TweeningSpace);
+                case TweenClass.PunchScale:
+                    return TargetTransform.PunchScale (EndPosition (), Duration);
                 default:
                     return null;
             }
@@ -110,6 +116,12 @@ namespace JK.Tweening
                     return TargetTransform.localPosition;
                 case TweenClass.Jump:
                     return TargetTransform.GetPosition (TweeningSpace);
+                case TweenClass.PunchPosition:
+                    return TargetTransform.GetPosition (TweeningSpace);
+                case TweenClass.PunchRotation:
+                    return TargetTransform.GetRotation (TweeningSpace);
+                case TweenClass.PunchScale:
+                    return TargetTransform.localPosition;
                 default:
                     return Vector3.zero;
             }
