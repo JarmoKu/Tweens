@@ -30,7 +30,6 @@ namespace JK.Tweening
 
         public override void Reset ()
         {
-            _callback.Invoke (_startValue);
             BaseReset ();
         }
 
@@ -45,7 +44,7 @@ namespace JK.Tweening
                     _intervalProgress += _interval;
 
                     var finalValue = _startValue <= _endValue ? Mathf.FloorToInt (value) : Mathf.CeilToInt (value);
-                    _callback.Invoke (finalValue);
+                    _callback?.Invoke (finalValue);
                 }
             }
         }
