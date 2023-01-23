@@ -28,7 +28,6 @@ namespace JK.Tweening
             if (transformTweenBehaviour is TweenBehaviour tweenBehaviour)
             {
                 TweenBehaviourGUI (transformTweenBehaviour, tweenBehaviour);
-                //EditorGUILayout.Space ();
             }
 
             SelectPropertiesToHide ();
@@ -50,8 +49,6 @@ namespace JK.Tweening
 
             EditorGUILayout.EndHorizontal ();
 
-            EditorGUILayout.Space ();
-
             if (_propertiesToHide.Count > 0)
             {
                 serializedObject.Update ();
@@ -62,22 +59,12 @@ namespace JK.Tweening
             {
                 DrawDefaultInspector ();
             }
-
-            /*EditorGUILayout.Space ();
-
-            EditorGUILayout.BeginHorizontal ();
-
-            if (GUILayout.Button ("Play"))
-                transformTweenBehaviour.Play ();
-
-            if (GUILayout.Button ("Stop"))
-                transformTweenBehaviour.Stop ();
-
-            EditorGUILayout.EndHorizontal ();*/
         }
 
         private void SelectPropertiesToHide ()
         {
+            _propertiesToHide.Add ("m_Script");
+
             var tweenType = (TweenType)serializedObject.FindProperty (
                 TransformTweenBehaviourBase.TweenTypePropertyName).enumValueIndex;
 
@@ -113,7 +100,7 @@ namespace JK.Tweening
             if (!tweenClass.Equals (TweenClass.Jump))
                 _propertiesToHide.Add (TweenBehaviour.ArcPeakPropertyName);
 
-            _tweenClass = (TweenClass)EditorGUILayout.EnumPopup ("Tween Class", _tweenClass);//
+            _tweenClass = (TweenClass)EditorGUILayout.EnumPopup ("Tween Class", _tweenClass);
             tweenBehaviour.SetTweenClass (_tweenClass);
 
             _propertiesToHide.Add (TweenBehaviour.TweenClassPropertyName);
