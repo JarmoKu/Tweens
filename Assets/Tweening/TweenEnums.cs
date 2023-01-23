@@ -26,6 +26,8 @@ public enum TweenType
 
 public enum ImageTweenType { FromTo, From, To, Gradient }
 
+public enum NumberTweens { Float, Int }
+
 public enum PlayOn
 {
     None,
