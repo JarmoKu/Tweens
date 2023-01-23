@@ -25,6 +25,6 @@ public static class TransformExtensions
 
     public static Vector3 GetRotation (this Transform transform, Space space)
     {
-        return space.Equals (Space.World) ? transform.rotation.eulerAngles : transform.localRotation.eulerAngles;
+        return space.Equals (Space.World) ? transform.eulerAngles : transform.localEulerAngles;
     }
 }

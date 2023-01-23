@@ -13,13 +13,13 @@ namespace JK.Tweening
 
         public static MoveTween MoveTo (this Transform transform, Vector3 end, float duration, Space space = Space.Self)
         {
-            var start = space.Equals (Space.Self) ? transform.localPosition : transform.position;
+            var start = transform.GetPosition (space);
             return new MoveTween (transform, start, end, duration, space);
         }
 
         public static MoveTween MoveFrom (this Transform transform, Vector3 start, float duration, Space space = Space.Self)
         {
-            var end = space.Equals (Space.Self) ? transform.localPosition : transform.position;
+            var end = transform.GetPosition (space);
             return new MoveTween (transform, start, end, duration, space);
         }
         #endregion
@@ -49,13 +49,13 @@ namespace JK.Tweening
 
         public static RotateTween RotateFrom (this Transform transform, Vector3 start, float duration, Space space = Space.Self)
         {
-            var endRotation = space.Equals (Space.Self) ? transform.localEulerAngles : transform.eulerAngles;
+            var endRotation = transform.GetRotation (space);
             return new RotateTween (transform, start, endRotation, duration, space);
         }
 
         public static RotateTween RotateTo (this Transform transform, Vector3 end, float duration, Space space = Space.Self)
         {
-            var startRotation = space.Equals (Space.Self) ? transform.localEulerAngles : transform.eulerAngles;
+            var startRotation = transform.GetRotation (space);
             return new RotateTween (transform, startRotation, end, duration, space);
         }
         #endregion
@@ -72,7 +72,7 @@ namespace JK.Tweening
 
         public static JumpTween JumpFrom (this Transform transform, Vector3 start, Vector3 peak, float duration, Space space = Space.Self)
         {
-            var endPosition = space.Equals (Space.Self) ? transform.localEulerAngles : transform.eulerAngles;
+            var endPosition = transform.GetPosition (space);
             var center = Vector3.Lerp (start, endPosition, 0.5f);
             var offset = peak - center;
             peak += offset;
@@ -82,7 +82,7 @@ namespace JK.Tweening
 
         public static JumpTween JumpTo (this Transform transform, Vector3 peak, Vector3 end, float duration, Space space = Space.Self)
         {
-            var startPosition = space.Equals (Space.Self) ? transform.localEulerAngles : transform.eulerAngles;
+            var startPosition = transform.GetPosition (space);
             var center = Vector3.Lerp (startPosition, end, 0.5f);
             var offset = peak - center;
             peak += offset;
@@ -98,14 +98,14 @@ namespace JK.Tweening
 
         public static JumpTween JumpFrom (this Transform transform, Vector3 start, float height, float duration, Vector3 up, Space space = Space.Self)
         {
-            var endPosition = space.Equals (Space.Self) ? transform.localEulerAngles : transform.eulerAngles;
+            var endPosition = transform.GetPosition (space);
             var peak = Vector3.Lerp (start, endPosition, 0.5f) + up.normalized * (height * 2f);
             return new JumpTween (transform, start, peak, endPosition, duration, space);
         }
 
         public static JumpTween JumpTo (this Transform transform, Vector3 end, float height, float duration, Vector3 up, Space space = Space.Self)
         {
-            var startPosition = space.Equals (Space.Self) ? transform.localEulerAngles : transform.eulerAngles;
+            var startPosition = transform.GetPosition (space);
             var peak = Vector3.Lerp (startPosition, end, 0.5f) + up.normalized * (height * 2f);
             return new JumpTween (transform, startPosition, peak, end, duration, space);
         }
