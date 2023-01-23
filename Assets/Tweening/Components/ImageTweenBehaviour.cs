@@ -41,6 +41,7 @@ namespace JK.Tweening
         [SerializeField] private Gradient m_gradient;
 
         private TweenBase ActiveTween;
+        private Color OriginalColor;
 
         private void Start ()
         {
@@ -71,6 +72,8 @@ namespace JK.Tweening
         {
             if (ActiveTween != null)
             {
+                m_attachedImage.color = OriginalColor;
+
                 ActiveTween.Pause ();
                 ActiveTween.Reset ();
 
@@ -83,6 +86,8 @@ namespace JK.Tweening
 
         public virtual void Play ()
         {
+            OriginalColor = m_attachedImage.color;
+
             switch (m_tweenType)
             {
                 case ImageTweenType.FromTo:

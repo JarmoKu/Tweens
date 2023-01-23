@@ -45,6 +45,7 @@ namespace JK.Tweening
 
         public Vector3 StartVector { get => m_start; protected set => m_start = value; }
         public Vector3 EndVector { get => m_end; protected set => m_end = value; }
+        public Vector3 OriginalVector { get; protected set; }
         protected TweenType TweenType => m_tweenType;
         protected TweenBase ActiveTween;
         protected float Duration => m_duration;

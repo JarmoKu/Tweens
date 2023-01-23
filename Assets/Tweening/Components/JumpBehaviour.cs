@@ -9,6 +9,8 @@ namespace JK.Tweening
 
         public override void Play ()
         {
+            OriginalVector = TargetTransform.GetPosition (TweeningSpace);
+
             switch (base.TweenType)
             {
                 case TweenType.FromTo:
@@ -34,7 +36,7 @@ namespace JK.Tweening
         public override void Stop ()
         {
             if (ActiveTween == null)
-                transform.position = StartVector;
+                transform.position = OriginalVector;
 
             base.Stop ();
         }

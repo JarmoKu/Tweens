@@ -6,6 +6,8 @@ namespace JK.Tweening
     {
         public override void Play ()
         {
+            OriginalVector = TargetTransform.GetRotation (TweeningSpace);
+
             switch (base.TweenType)
             {
                 case TweenType.FromTo:
@@ -29,7 +31,7 @@ namespace JK.Tweening
         {
             if (ActiveTween == null)
             {
-                transform.position = StartVector;
+                transform.SetRotation (StartVector, TweeningSpace);
             }
 
             base.Stop ();

@@ -14,12 +14,15 @@ namespace JK.Tweening
             switch (m_punchType)
             {
                 case PunchType.Position:
+                    OriginalVector = TargetTransform.GetPosition (TweeningSpace);
                     ActiveTween = TargetTransform.PunchPosition (EndVector, Duration, TweeningSpace);
                     break;
                 case PunchType.Rotation:
+                    OriginalVector = TargetTransform.GetRotation (TweeningSpace);
                     ActiveTween = TargetTransform.PunchRotation (EndVector, Duration, TweeningSpace);
                     break;
                 case PunchType.Scale:
+                    OriginalVector = TargetTransform.localScale;
                     ActiveTween = TargetTransform.PunchScale (EndVector, Duration);
                     break;
                 default:
@@ -35,13 +38,13 @@ namespace JK.Tweening
             switch (m_punchType)
             {
                 case PunchType.Position:
-                    transform.SetPosition (StartVector, TweeningSpace);
+                    transform.SetPosition (OriginalVector, TweeningSpace);
                     break;
                 case PunchType.Rotation:
-                    transform.SetRotation (StartVector, TweeningSpace);
+                    transform.SetRotation (OriginalVector, TweeningSpace);
                     break;
                 case PunchType.Scale:
-                    transform.localScale = StartVector;
+                    transform.localScale = OriginalVector;
                     break;
                 default:
                     Debug.Log ($"Incorrect PunchType {m_punchType}");
