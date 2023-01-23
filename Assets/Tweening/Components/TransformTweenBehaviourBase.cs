@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace JK.Tweening
 {
@@ -42,6 +43,8 @@ namespace JK.Tweening
         [SerializeField] private Vector3 m_start;
         [Space]
         [SerializeField] private Vector3 m_end;
+        [Space]
+        [SerializeField] private UnityEvent m_onCompleted;
 
         public Vector3 StartVector { get => m_start; protected set => m_start = value; }
         public Vector3 EndVector { get => m_end; protected set => m_end = value; }
@@ -54,13 +57,13 @@ namespace JK.Tweening
 
         private void Start ()
         {
-            if (m_playOn.Equals (PlayOn.Start))
+            if (m_playOn.Equals (PlayOn.Start) && Application.isPlaying)
                 Play ();
         }
 
         private void OnEnable ()
         {
-            if (m_playOn.Equals (PlayOn.OnEnable))
+            if (m_playOn.Equals (PlayOn.OnEnable) && Application.isPlaying)
             {
                 if (ActiveTween != null)
                     Restart ();
@@ -88,6 +91,8 @@ namespace JK.Tweening
                 if (!Application.isPlaying)
                     TweenPreviewUpdater.StopPreview ();
 #endif
+
+                m_onCompleted.Invoke ();
             }
         }
 
