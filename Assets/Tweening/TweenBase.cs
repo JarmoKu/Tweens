@@ -2,7 +2,7 @@
 
 namespace JK.Tweening
 {
-	public abstract class TweenBase
+	public abstract class TweenBase : IProgressable
 	{
         public delegate void TweenEventHandler ();
 
@@ -25,6 +25,7 @@ namespace JK.Tweening
 		protected LoopType _loopType = LoopType.None;
 		protected EaseType _easeType = EaseType.Linear;
 
+        public float Duration => _duration;
         public abstract void Update (float deltaTime);
         public abstract void Reset ();
 

@@ -8,7 +8,7 @@ namespace JK.Tweening
         public static float CustomTimeScale { get; private set; } = 1f;
 
         private static TweenManager Instance;
-        private static readonly List<TweenBase> _tweens = new ();
+        private static readonly List<IProgressable> _tweens = new ();
         private static int LatestFrameCount;
 
         private void Update ()
@@ -23,16 +23,16 @@ namespace JK.Tweening
             }
         }
 
-        public static void AddTween (TweenBase tween)
+        public static void AddTween (IProgressable tween)
         {
-            if (Instance == default)
+            if (Instance == default && Application.isPlaying)
                 CreateInstance ();
 
             if (!_tweens.Contains (tween))
                 _tweens.Add (tween);
         }
 
-        public static void RemoveTween (TweenBase tween)
+        public static void RemoveTween (IProgressable tween)
         {
             if (_tweens.Contains (tween))
                 _tweens.Remove (tween);
