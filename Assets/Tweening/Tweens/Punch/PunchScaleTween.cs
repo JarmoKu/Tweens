@@ -36,7 +36,7 @@ namespace JK.Tweening
         public override void SetLoops (int count, LoopType type = LoopType.None)
         {
             _loopCount = count;
-            _loopType = type.Equals (LoopType.None) ? type : LoopType.Repeat;
+            _loopType = type.Matches (LoopType.None) ? type : LoopType.Repeat;
         }
     }
 }

@@ -149,5 +149,80 @@ namespace JK.Tweening
             return new IntTween (startValue, endValue, duration, increment, callback); ;
         }
         #endregion
+
+        #region Transform
+        public static void SetPosition (this Transform transform, Vector3 position, Space space)
+        {
+            if (space.Matches (Space.Self))
+                transform.localPosition = position;
+            else
+                transform.position = position;
+        }
+
+        public static void SetRotation (this Transform transform, Vector3 rotation, Space space)
+        {
+            if (space.Matches (Space.Self))
+                transform.localRotation = Quaternion.Euler (rotation);
+            else
+                transform.rotation = Quaternion.Euler (rotation);
+        }
+
+        public static Vector3 GetPosition (this Transform transform, Space space)
+        {
+            return space.Matches (Space.World) ? transform.position : transform.localPosition;
+        }
+
+        public static Vector3 GetRotation (this Transform transform, Space space)
+        {
+            return space.Matches (Space.World) ? transform.eulerAngles : transform.localEulerAngles;
+        }
+        #endregion
+
+        #region Enums
+        public static bool Matches (this Space easeType, Space comparison)
+        {
+            return (int)easeType == (int)comparison;
+        }
+
+        public static bool Matches (this LoopType easeType, LoopType comparison)
+        {
+            return (int)easeType == (int)comparison;
+        }
+
+        public static bool Matches (this TweenClass easeType, TweenClass comparison)
+        {
+            return (int)easeType == (int)comparison;
+        }
+
+        public static bool Matches (this TweenType easeType, TweenType comparison)
+        {
+            return (int)easeType == (int)comparison;
+        }
+
+        public static bool Matches (this ImageTweenType easeType, ImageTweenType comparison)
+        {
+            return (int)easeType == (int)comparison;
+        }
+
+        public static bool Matches (this NumberTweens easeType, NumberTweens comparison)
+        {
+            return (int)easeType == (int)comparison;
+        }
+
+        public static bool Matches (this PlayOn easeType, PlayOn comparison)
+        {
+            return (int)easeType == (int)comparison;
+        }
+
+        public static bool Matches (this PunchType easeType, PunchType comparison)
+        {
+            return (int)easeType == (int)comparison;
+        }
+
+        public static bool Matches (this EaseType easeType, EaseType comparison)
+        {
+            return (int)easeType == (int)comparison;
+        }
+        #endregion
     }
 }

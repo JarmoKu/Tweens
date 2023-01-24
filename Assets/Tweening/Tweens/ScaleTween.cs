@@ -22,7 +22,7 @@ namespace JK.Tweening
         {
             if (TryProgress (deltaTime, out _))
             {
-                var newScale = _loopType.Equals (LoopType.Additive) ?
+                var newScale = _loopType.Matches (LoopType.Additive) ?
                     Vector3.LerpUnclamped (_startScale, _endScale, _totalProgress / _duration) :
                     Vector3.Lerp (_startScale, _endScale, _normalizedProgress);
 

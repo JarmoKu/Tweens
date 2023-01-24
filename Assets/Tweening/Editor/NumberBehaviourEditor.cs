@@ -71,7 +71,7 @@ namespace JK.Tweening
             _propertiesToHide.Add ("m_Script");
             var loopType = (LoopType)serializedObject.FindProperty (NumberBehaviour.LoopTypePropertyName).intValue;
 
-            if (loopType.Equals (LoopType.None))
+            if (loopType.Matches (LoopType.None))
                 _propertiesToHide.AddRange (_loopProperties);
 
             var tweenType = (NumberTweens)serializedObject.FindProperty (NumberBehaviour.ValueTypePropertyName).enumValueIndex;

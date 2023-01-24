@@ -24,7 +24,7 @@ namespace JK.Tweening
         {
             if (TryProgress (deltaTime, out _))
             {
-                var newRotation = _loopType.Equals (LoopType.Additive) ?
+                var newRotation = _loopType.Matches (LoopType.Additive) ?
                     Vector3.LerpUnclamped (_startRotation, _endRotation, _totalProgress / _duration) :
                     Vector3.Lerp (_startRotation, _endRotation, _normalizedProgress);
 

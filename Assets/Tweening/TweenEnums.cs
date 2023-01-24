@@ -1,6 +1,6 @@
 ﻿public enum LoopType 
 { 
-    None, // Should this exist?
+    None,
     Repeat, 
     PingPong,
     Additive
@@ -24,9 +24,19 @@ public enum TweenType
     To
 }
 
-public enum ImageTweenType { FromTo, From, To, Gradient }
+public enum ImageTweenType 
+{ 
+    FromTo, 
+    From, 
+    To, 
+    Gradient 
+}
 
-public enum NumberTweens { Float, Int }
+public enum NumberTweens 
+{ 
+    Float, 
+    Int 
+}
 
 public enum PlayOn
 {

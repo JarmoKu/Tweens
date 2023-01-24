@@ -37,7 +37,7 @@ namespace JK.Tweening
 
                 _transform.SetPosition (newPosition, _space);
 
-                if (completedLoop && _loopType.Equals (LoopType.Additive))
+                if (completedLoop && _loopType.Matches (LoopType.Additive))
                 {
                     var offset = _endPosition - _startPosition;
                     _startPosition = _endPosition;

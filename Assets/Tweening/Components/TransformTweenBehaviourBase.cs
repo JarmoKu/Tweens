@@ -57,13 +57,13 @@ namespace JK.Tweening
 
         private void Start ()
         {
-            if (m_playOn.Equals (PlayOn.Start) && Application.isPlaying)
+            if (m_playOn.Matches (PlayOn.Start) && Application.isPlaying)
                 Play ();
         }
 
         private void OnEnable ()
         {
-            if (m_playOn.Equals (PlayOn.OnEnable) && Application.isPlaying)
+            if (m_playOn.Matches (PlayOn.OnEnable) && Application.isPlaying)
             {
                 if (ActiveTween != null)
                     Restart ();

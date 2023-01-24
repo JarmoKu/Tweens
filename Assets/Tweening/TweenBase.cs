@@ -106,7 +106,7 @@ namespace JK.Tweening
             if (_loopCount != -1)
                 _totalProgress = Mathf.Min (_totalProgress, _duration * _loopCount);
 
-            _normalizedProgress = _loopType.Equals (LoopType.PingPong) ? 0f : 1f;
+            _normalizedProgress = _loopType.Matches (LoopType.PingPong) ? 0f : 1f;
 
             _loopsDone++;
             _loopDelayLeft = _loopDelay;

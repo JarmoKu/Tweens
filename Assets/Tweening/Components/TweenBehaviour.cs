@@ -74,9 +74,9 @@ namespace JK.Tweening
             switch (TweenType)
             {
                 case TweenType.FromTo:
-                    return TweeningSpace.Equals (Space.World) ? StartVector : TargetTransform.InverseTransformPoint (StartVector);
+                    return TweeningSpace.Matches (Space.World) ? StartVector : TargetTransform.InverseTransformPoint (StartVector);
                 case TweenType.From:
-                    return TweeningSpace.Equals (Space.World) ? StartVector : TargetTransform.InverseTransformPoint (StartVector);
+                    return TweeningSpace.Matches (Space.World) ? StartVector : TargetTransform.InverseTransformPoint (StartVector);
                 case TweenType.To:
                     return TargetTransform.GetPosition (TweeningSpace);
                 default:
@@ -89,11 +89,11 @@ namespace JK.Tweening
             switch (TweenType)
             {
                 case TweenType.FromTo:
-                    return TweeningSpace.Equals (Space.World) ? EndVector : TargetTransform.InverseTransformPoint (EndVector);
+                    return TweeningSpace.Matches (Space.World) ? EndVector : TargetTransform.InverseTransformPoint (EndVector);
                 case TweenType.From:
                     return TargetTransform.GetPosition (TweeningSpace);
                 case TweenType.To:
-                    return TweeningSpace.Equals (Space.World) ? EndVector : TargetTransform.InverseTransformPoint (EndVector);
+                    return TweeningSpace.Matches (Space.World) ? EndVector : TargetTransform.InverseTransformPoint (EndVector);
                 default:
                     return Vector3.zero;
             }
@@ -101,7 +101,7 @@ namespace JK.Tweening
 
         private Vector3 ArcTopPosition ()
         {
-            return TweeningSpace.Equals (Space.World) ? m_arcPeakPosition : TargetTransform.InverseTransformPoint (m_arcPeakPosition);
+            return TweeningSpace.Matches (Space.World) ? m_arcPeakPosition : TargetTransform.InverseTransformPoint (m_arcPeakPosition);
         }
 
         private Vector3 GetOriginalPosition ()

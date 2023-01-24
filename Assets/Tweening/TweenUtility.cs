@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JK.Tweening;
+using UnityEngine;
 
 public class TweenUtility
 {
@@ -34,6 +35,6 @@ public class TweenUtility
 
     public static Vector3 InterpolateVector3 (Vector3 start, Vector3 end, float duration, float normalizedProgress, float totalProgress, LoopType loopType)
     {
-        return loopType.Equals (LoopType.Additive) ? Vector3.LerpUnclamped (start, end, totalProgress / duration) : Vector3.Lerp (start, end, normalizedProgress);
+        return loopType.Matches (LoopType.Additive) ? Vector3.LerpUnclamped (start, end, totalProgress / duration) : Vector3.Lerp (start, end, normalizedProgress);
     }
 }

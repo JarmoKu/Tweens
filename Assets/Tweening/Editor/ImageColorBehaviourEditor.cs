@@ -87,7 +87,7 @@ namespace JK.Tweening
             var targetSelf = serializedObject.FindProperty (
                 TransformTweenBehaviourBase.TargetSelfPropertyName).boolValue;
 
-            if (loopType.Equals (LoopType.None))
+            if (loopType.Matches (LoopType.None))
                 _propertiesToHide.AddRange (_loopProperties);
 
             if (targetSelf)

@@ -44,7 +44,7 @@ namespace JK.Tweening
             {
                 _image.color = _useGradient ? _gradient.Evaluate (_normalizedProgress) : Color.Lerp (_start, _end, _normalizedProgress);
 
-                if (completedLoop && _loopType.Equals (LoopType.Additive))
+                if (completedLoop && _loopType.Matches (LoopType.Additive))
                 {
                     _normalizedProgress = 0f;
                     var offset = _end - _start;

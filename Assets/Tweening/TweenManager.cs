@@ -58,7 +58,7 @@ namespace JK.Tweening
 
         private bool UpdateHasBeenCalledThisFrame ()
         {
-            if (LatestFrameCount.Equals (Time.frameCount))
+            if (LatestFrameCount == Time.frameCount)
             {
                 Debug.LogWarning ("Update is being called more than once per frame. " +
                     "Make sure there is only one TweenManager instance");

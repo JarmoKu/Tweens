@@ -66,13 +66,13 @@ namespace JK.Tweening
 
         private void Start ()
         {
-            if (m_playOn.Equals (PlayOn.Start) && Application.isPlaying)
+            if (m_playOn.Matches (PlayOn.Start) && Application.isPlaying)
                 Play ();
         }
 
         private void OnEnable ()
         {
-            if (m_playOn.Equals (PlayOn.OnEnable) && Application.isPlaying)
+            if (m_playOn.Matches (PlayOn.OnEnable) && Application.isPlaying)
             {
                 if (_activeTween != null)
                     Restart ();
@@ -114,7 +114,7 @@ namespace JK.Tweening
                 _activeTween.Pause ();
                 _activeTween.Reset ();
 
-                if (m_valueType.Equals (NumberTweens.Float))
+                if (m_valueType.Matches (NumberTweens.Float))
                     m_onUpdatedFloat.Invoke (m_startFloat);
                 else
                     m_onUpdatedInt.Invoke (m_startInt);

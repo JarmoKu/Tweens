@@ -68,11 +68,11 @@ namespace JK.Tweening
             var tweenType = (TweenType)serializedObject.FindProperty (
                 TransformTweenBehaviourBase.TweenTypePropertyName).enumValueIndex;
 
-            if (tweenType.Equals (TweenType.From))
+            if (tweenType.Matches (TweenType.From))
             {
                 _propertiesToHide.Add (_endProperty);
             }
-            else if (tweenType.Equals (TweenType.To))
+            else if (tweenType.Matches (TweenType.To))
             {
                 _propertiesToHide.Add (_startProperty);
             }
@@ -80,7 +80,7 @@ namespace JK.Tweening
             var loopType = (LoopType)serializedObject.FindProperty (
                 TransformTweenBehaviourBase.LoopTypePropertyName).intValue;
 
-            if (loopType.Equals (LoopType.None))
+            if (loopType.Matches (LoopType.None))
                 _propertiesToHide.AddRange (_loopProperties);
 
             var targetSelf = serializedObject.FindProperty (
@@ -97,7 +97,7 @@ namespace JK.Tweening
             var tweenClass = (TweenClass)serializedObject1.FindProperty (
                 TweenBehaviour.TweenClassPropertyName).enumValueIndex;
 
-            if (!tweenClass.Equals (TweenClass.Jump))
+            if (!tweenClass.Matches (TweenClass.Jump))
                 _propertiesToHide.Add (TweenBehaviour.ArcPeakPropertyName);
 
             _tweenClass = (TweenClass)EditorGUILayout.EnumPopup ("Tween Class", _tweenClass);
@@ -105,9 +105,9 @@ namespace JK.Tweening
 
             _propertiesToHide.Add (TweenBehaviour.TweenClassPropertyName);
 
-            if (_tweenClass.Equals (TweenClass.PunchPosition) || 
-                _tweenClass.Equals (TweenClass.PunchRotation) || 
-                _tweenClass.Equals (TweenClass.PunchScale))
+            if (_tweenClass.Matches (TweenClass.PunchPosition) || 
+                _tweenClass.Matches (TweenClass.PunchRotation) || 
+                _tweenClass.Matches (TweenClass.PunchScale))
             {
                 _propertiesToHide.Add (_startProperty);
             }
