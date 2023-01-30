@@ -39,8 +39,7 @@ namespace JK.Tweening
 
         public override void Update (float deltaTime)
         {
-            // For some reason _normalizedProgress is NaN on first frame with this tween only.
-            if (TryProgress (deltaTime, out bool completedLoop) && !float.IsNaN (_normalizedProgress))
+            if (TryProgress (deltaTime, out bool completedLoop))
             {
                 _image.color = _useGradient ? _gradient.Evaluate (_normalizedProgress) : Color.Lerp (_start, _end, _normalizedProgress);
 
