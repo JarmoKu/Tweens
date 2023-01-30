@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace JK.Tweening
+/*namespace JK.Tweening
 {
     public class RotateBehaviour : TransformTweenBehaviourBase
     {
@@ -37,4 +37,4 @@ namespace JK.Tweening
             base.Stop ();
         }
     }
-}
+}*/

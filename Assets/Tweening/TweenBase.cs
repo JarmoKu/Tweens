@@ -31,9 +31,11 @@ namespace JK.Tweening
 
         public void Play ()
 		{
-			IsPlaying = true;
-			TweenManager.AddTween (this);
-		}
+            if (Application.isPlaying)
+			    TweenManager.AddTween (this);
+
+            IsPlaying = true;
+        }
 
         public void Pause ()
         {
@@ -118,9 +120,11 @@ namespace JK.Tweening
 
         private void OnAllLoopsCompleted ()
         {
+            if (Application.isPlaying)
+                TweenManager.RemoveTween (this);
+
             IsPlaying = false;
             IsCompleted = true;
-            TweenManager.RemoveTween (this);
 
             OnCompleted?.Invoke ();
         }

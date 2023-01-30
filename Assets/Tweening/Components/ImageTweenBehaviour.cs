@@ -4,10 +4,12 @@ using UnityEngine.UI;
 namespace JK.Tweening
 {
     [RequireComponent (typeof (Image))]
-    public class ImageTweenBehaviour : MonoBehaviour
+    public class ImageTweenBehaviour : TweenBehaviourBase
     {
         #region PropertyNames for custom editor
 #if UNITY_EDITOR
+        public static string TargetSelfPropertyName => nameof (m_targetSelf);
+        public static string LoopTypePropertyName => nameof (m_loopType);
         public static string TargetImagePropertyName => nameof (m_attachedImage);
         public static string LoopCountPropertyName => nameof (m_loopCount);
         public static string LoopDelayPropertyName => nameof (m_loopDelay);
@@ -40,7 +42,6 @@ namespace JK.Tweening
         [Space]
         [SerializeField] private Gradient m_gradient;
 
-        private TweenBase ActiveTween;
         private Color OriginalColor;
 
         private void Start ()
@@ -60,31 +61,21 @@ namespace JK.Tweening
             }
         }
 
-        public void Restart ()
+        public override void Stop ()
         {
-            if (ActiveTween == null)
+            m_attachedImage.color = OriginalColor;
+            base.Stop ();
+        }
+
+        public override void Restart ()
+        {
+            if (ActiveTween == default)
                 Play ();
             else
-                ActiveTween.Restart ();
+                base.Restart ();
         }
 
-        public void Stop ()
-        {
-            if (ActiveTween != null)
-            {
-                m_attachedImage.color = OriginalColor;
-
-                ActiveTween.Pause ();
-                ActiveTween.Reset ();
-
-#if UNITY_EDITOR
-                if (!Application.isPlaying)
-                    TweenPreviewUpdater.StopPreview ();
-#endif
-            }
-        }
-
-        public virtual void Play ()
+        public override void Play ()
         {
             OriginalColor = m_attachedImage.color;
 
@@ -108,15 +99,7 @@ namespace JK.Tweening
             ActiveTween.SetLoopDelay (m_loopDelay);
             ActiveTween.SetEase (m_easeType);
 
-#if UNITY_EDITOR
-            if (!Application.isPlaying)
-            {
-                TweenPreviewUpdater.StartPreviev (ActiveTween);
-                return;
-            }
-#endif
-
-            ActiveTween.Play ();
+            base.Play ();
         }
 
         protected Image GetImage ()
@@ -130,9 +113,7 @@ namespace JK.Tweening
         private void OnValidate ()
         {
             if (m_targetSelf)
-            {
                 m_attachedImage = GetComponent<Image> ();
-            }
         }
     }
 }

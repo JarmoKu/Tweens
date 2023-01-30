@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace JK.Tweening
 {
-    public class NumberBehaviour : MonoBehaviour
+    public class NumberBehaviour : TweenBehaviourBase
     {
         [Serializable]
         public class IntEvent : UnityEvent<int> { }
@@ -62,8 +62,6 @@ namespace JK.Tweening
         public int StartInt (int value) => m_startInt = value;
         public int EndInt (int value) => m_endInt = value;
 
-        private TweenBase _activeTween;
-
         private void Start ()
         {
             if (m_playOn.Matches (PlayOn.Start) && Application.isPlaying)
@@ -74,56 +72,46 @@ namespace JK.Tweening
         {
             if (m_playOn.Matches (PlayOn.OnEnable) && Application.isPlaying)
             {
-                if (_activeTween != null)
+                if (ActiveTween != null)
                     Restart ();
                 else
                     Play ();
             }
         }
 
-        public void Play ()
+        public override void Play ()
         {
             // Maybe old tween should be recycled?
-            _activeTween = GetTween ();
-            _activeTween.SetLoops (m_loopCount, m_loopType);
-            _activeTween.SetLoopDelay (m_loopDelay);
-            _activeTween.SetEase (m_easeType);
+            ActiveTween = GetTween ();
+            ActiveTween.SetLoops (m_loopCount, m_loopType);
+            ActiveTween.SetLoopDelay (m_loopDelay);
+            ActiveTween.SetEase (m_easeType);
 
-#if UNITY_EDITOR
-            if (!Application.isPlaying)
-            {
-                TweenPreviewUpdater.StartPreviev (_activeTween);
-                return;
-            }
-#endif
-            _activeTween.Play ();
+            base.Play ();
         }
 
-        public void Restart ()
+        public override void Stop ()
         {
-            if (_activeTween == null)
-                Play ();
-            else
-                _activeTween.Restart ();
-        }
-
-        public virtual void Stop ()
-        {
-            if (_activeTween != null)
+            if (ActiveTween != null)
             {
-                _activeTween.Pause ();
-                _activeTween.Reset ();
+                ActiveTween.Pause ();
+                ActiveTween.Reset ();
 
                 if (m_valueType.Matches (NumberTweens.Float))
                     m_onUpdatedFloat.Invoke (m_startFloat);
                 else
                     m_onUpdatedInt.Invoke (m_startInt);
 
-#if UNITY_EDITOR
-                if (!Application.isPlaying)
-                    TweenPreviewUpdater.StopPreview ();
-#endif
+                base.Stop ();
             }
+        }
+
+        public override void Restart ()
+        {
+            if (ActiveTween == default)
+                Play ();
+            else
+                base.Restart ();
         }
 
         private TweenBase GetTween ()

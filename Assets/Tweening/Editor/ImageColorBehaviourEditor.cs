@@ -82,10 +82,10 @@ namespace JK.Tweening
             }
 
             var loopType = (LoopType)serializedObject.FindProperty (
-                TransformTweenBehaviourBase.LoopTypePropertyName).intValue;
+                ImageTweenBehaviour.LoopTypePropertyName).intValue;
 
             var targetSelf = serializedObject.FindProperty (
-                TransformTweenBehaviourBase.TargetSelfPropertyName).boolValue;
+                ImageTweenBehaviour.TargetSelfPropertyName).boolValue;
 
             if (loopType.Matches (LoopType.None))
                 _propertiesToHide.AddRange (_loopProperties);

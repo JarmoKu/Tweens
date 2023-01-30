@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace JK.Tweening
+/*namespace JK.Tweening
 {
     public class PunchBehaviour : TransformTweenBehaviourBase
     {
@@ -73,4 +73,4 @@ namespace JK.Tweening
             }
         }
     }
-}
+}*/

@@ -7,7 +7,7 @@ namespace JK.Tweening
 {
     public static class TweenPreviewUpdater
     {
-        private static readonly List<TweenBase> ActivePreviews = new List<TweenBase> ();
+        private static readonly List<TweenBase> ActivePreviews = new();
 
         private static int UndoGroupIndex = -1;
         private static int FrameSkipsLeft;
@@ -17,6 +17,12 @@ namespace JK.Tweening
         {
             EditorApplication.update -= OnEditorUpdate;
             EditorApplication.update += OnEditorUpdate;
+
+            TweenBehaviourBase.StartedTween -= StartPreviev;
+            TweenBehaviourBase.StartedTween += StartPreviev;
+
+            TweenBehaviourBase.StoppedTween -= StopPreview;
+            TweenBehaviourBase.StoppedTween += StopPreview;
         }
 
         public static void StartPreviev (TweenBase tween)

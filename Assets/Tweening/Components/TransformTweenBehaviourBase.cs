@@ -3,6 +3,22 @@ using UnityEngine.Events;
 
 namespace JK.Tweening
 {
+    public static class TweenEditorEvents
+    {
+        public static event System.Action<TweenBase> StartedTween;
+        public static event System.Action StoppedTween;
+
+        public static void Started (TweenBase tweenBase)
+        {
+            StartedTween?.Invoke (tweenBase);
+        }
+
+        public static void Stopped (TweenBase tweenBase)
+        {
+            StoppedTween?.Invoke ();
+        }
+    }
+
     public abstract class TransformTweenBehaviourBase : MonoBehaviour
     {
         #region PropertyNames for custom editor
@@ -89,7 +105,10 @@ namespace JK.Tweening
 
 #if UNITY_EDITOR
                 if (!Application.isPlaying)
-                    TweenPreviewUpdater.StopPreview ();
+                {
+                    TweenEditorEvents.Stopped (ActiveTween);
+                    //TweenPreviewUpdater.StopPreview ();
+                }
 #endif
 
                 m_onCompleted.Invoke ();
@@ -105,7 +124,8 @@ namespace JK.Tweening
 #if UNITY_EDITOR
             if (!Application.isPlaying)
             {
-                TweenPreviewUpdater.StartPreviev (ActiveTween);
+                TweenEditorEvents.Started (ActiveTween);//
+                //TweenPreviewUpdater.StartPreviev (ActiveTween);
                 return;
             }
 #endif

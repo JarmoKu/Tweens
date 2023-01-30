@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace JK.Tweening
+/*namespace JK.Tweening
 {
     public class JumpBehaviour : TransformTweenBehaviourBase
     {
@@ -41,4 +41,4 @@ namespace JK.Tweening
             base.Stop ();
         }
     }
-}
+}*/

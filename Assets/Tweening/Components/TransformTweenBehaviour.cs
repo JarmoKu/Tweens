@@ -1,24 +1,90 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace JK.Tweening
 {
-    [ExecuteAlways]
-    public class TweenBehaviour : TransformTweenBehaviourBase
+    public class TransformTweenBehaviour : TweenBehaviourBase
     {
         #region PropertyNames for custom editor
         public static string ArcPeakPropertyName => nameof (m_arcPeakPosition);
         public static string TweenClassPropertyName => nameof (m_tweenClass);
+        public static string TargetSelfPropertyName => nameof (m_targetSelf);
+        public static string TargetTransformPropertyName => nameof (m_targetTransform);
+        public static string LoopCountPropertyName => nameof (m_loopCount);
+        public static string LoopTypePropertyName => nameof (m_loopType);
+        public static string LoopDelayPropertyName => nameof (m_loopDelay);
+        public static string TweenTypePropertyName => nameof (m_tweenType);
+        public static string StartPropertyName => nameof (m_start);
+        public static string EndPropertyName => nameof (m_end);
         #endregion
 
         public void SetTweenClass (TweenClass tweenClass) => m_tweenClass = tweenClass;
 
         [SerializeField] private TweenClass m_tweenClass;
+        [SerializeField] private bool m_targetSelf = true;
+        [SerializeField] private Transform m_targetTransform;
+        [Space]
+
+        [SerializeField] private PlayOn m_playOn;
+        [SerializeField] private TweenType m_tweenType;
+        [Space]
+
+        [SerializeField] private Space m_space;
+        [SerializeField] private EaseType m_easeType;
+        [Min (0f)]
+        [SerializeField] private float m_duration;
+
+        [Header ("Looping")]
+        [SerializeField] private LoopType m_loopType;
+        [Min (-1)]
+        [Tooltip ("-1 for infinite loops")]
+        [SerializeField] private int m_loopCount;
+        [Min (0f)]
+        [SerializeField] private float m_loopDelay;
+
+        [Space]
+        [SerializeField] private Vector3 m_start;
+        [Space]
+        [SerializeField] private Vector3 m_end;
+        [Space]
         [SerializeField] private Vector3 m_arcPeakPosition;
+        [Space]
+        [SerializeField] private UnityEvent m_onCompleted;
+
+        public Vector3 StartVector { get => m_start; protected set => m_start = value; }
+        public Vector3 EndVector { get => m_end; protected set => m_end = value; }
+        public Vector3 OriginalVector { get; protected set; }
+        protected TweenType TweenType => m_tweenType;
+        protected float Duration => m_duration;
+        protected Space TweeningSpace => m_space;
+        protected Transform TargetTransform => m_targetSelf ? transform : m_targetTransform;
+
+        private void Start ()
+        {
+            if (m_playOn.Matches (PlayOn.Start) && Application.isPlaying)
+                Play ();
+        }
+
+        private void OnEnable ()
+        {
+            if (m_playOn.Matches (PlayOn.OnEnable) && Application.isPlaying)
+            {
+                if (ActiveTween != null)
+                    Restart ();
+                else
+                    Play ();
+            }
+        }
 
         public override void Play ()
         {
             OriginalVector = GetOriginalPosition ();
             ActiveTween = GetTween ();
+
+            ActiveTween.SetLoops (m_loopCount, m_loopType);
+            ActiveTween.SetLoopDelay (m_loopDelay);
+            ActiveTween.SetEase (m_easeType);
+
             base.Play ();
         }
 
@@ -44,6 +110,14 @@ namespace JK.Tweening
             }
 
             base.Stop ();
+        }
+
+        public override void Restart ()
+        {
+            if (ActiveTween == default)
+                Play ();
+            else
+                base.Restart ();
         }
 
         private TweenBase GetTween ()
