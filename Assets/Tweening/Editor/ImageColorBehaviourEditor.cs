@@ -36,6 +36,18 @@ namespace JK.Tweening
 
         private void DrawInspector (ImageTweenBehaviour tweenBehaviour)
         {
+            EditorGUILayout.BeginHorizontal ();
+
+            if (GUILayout.Button ("Play"))
+                tweenBehaviour.Play ();
+
+            if (GUILayout.Button ("Stop"))
+                tweenBehaviour.Stop ();
+
+            EditorGUILayout.EndHorizontal ();
+
+            EditorGUILayout.Space ();
+
             if (_propertiesToHide.Count > 0)
             {
                 serializedObject.Update ();
@@ -46,18 +58,6 @@ namespace JK.Tweening
             {
                 DrawDefaultInspector ();
             }
-
-            EditorGUILayout.Space ();
-
-            EditorGUILayout.BeginHorizontal ();
-
-            if (GUILayout.Button ("Play"))
-                tweenBehaviour.Play ();
-
-            if (GUILayout.Button ("Stop"))
-                tweenBehaviour.Stop ();
-
-            EditorGUILayout.EndHorizontal ();
         }
 
         private void SelectPropertiesToHide (ImageTweenType tweenType)
