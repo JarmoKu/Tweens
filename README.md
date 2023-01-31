@@ -7,7 +7,7 @@
 - [Sequence](#sequences)
 - [Extension methods](#extensions)
 
-## CONSTRUCTORS
+## Constructors
 
 ### Transform
 
@@ -46,7 +46,9 @@
 - public RendererColorTween (Renderer image, int materialIndex, Color start, Color end, float duration)
 - public RendererColorTween (Renderer image, int materialIndex, Gradient gradient, float duration)
 
-## TWEENBASE
+## Tweenbase
+
+Is inherited by all tweens and so the public properties and methods can be used through them as well.
 
 ### properties:
 
@@ -58,20 +60,24 @@
 
 ### public methods:
 
-- public void Reset ();
-- public void Play ()
-- public void Pause ()
-- public void Restart ()
-- public void SetEase (EaseType easeType)
-- public virtual void SetLoops (int count, LoopType type = LoopType.None)
-- public void SetLoopDelay (float delay)
+| Method | Description |
+| --- | --- |
+| Play | Start progressing tween |
+| Reset | Set tween progress back to zero |
+| Pause | Stop tween from progressing temporarily |
+| Restart | Start progressing tween from beginning |
+| SetEase (EaseType easeType) | Specify the rate of change of over time |
+| SetLoops | Set how many times tween is repeated and in what manner |
+| SetLoopDelay | Set time between loops in seconds |
 
 ### Events:
 
-- public event TweenEventHandler OnUpdated;
-- public event TweenEventHandler OnCompleted;
+| Method | Description |
+| --- | --- |
+| OnUpdated | Invoked every frame when tween progresses |
+| OnCompleted | Invoked when all loops have finished |
 
-## SEQUENCES
+## Sequence Class
 
 ### properties:
 
@@ -81,14 +87,16 @@
 
 ### public methods:
 
-- public void Play ()
-- public void Pause ()
-- public void Reset ()
-- public void Restart ()
-- public void Append (TweenBase tween)
-- public void Join (TweenBase tween, float startTime)
-- public void AddDelay (float duration)
-- public void Clear ()
+| Method | Description |
+| --- | --- |
+| Play | Start progressing tween |
+| Reset | Set tween progress back to zero |
+| Pause | Stop tween from progressing temporarily |
+| Restart | Start progressing tween from beginning |
+| Append | Add first tween or new one after the previous one |
+| Join | Add tween at specific time of the sequence |
+| AddDelay | Add delay in seconds at the end of the sequence |
+| Clear | Remove all tweens inside the sequence |
 
 ## EXTENSIONS
 
@@ -128,9 +136,13 @@
 ### Numbers
 
 - public static FloatTween TweenNumber (this float startValue, float endValue, float duration, Action<float> callback)
+	- callback returns the changed value
 - public static FloatTween TweenNumber (this float startValue, float endValue, float duration, float increment, Action<float> callback)
+	- callback returns the changed value
 - public static IntTween TweenNumber (this int startValue, int endValue, float duration, Action<int> callback)
+	- callback returns the changed value
 - public static IntTween TweenNumber (this int startValue, int endValue, float duration, int increment, Action<int> callback)
+	- callback returns the changed value
 
 ### Image
 
