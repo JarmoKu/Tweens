@@ -52,6 +52,7 @@
 
 ### properties:
 
+| Name | Description |
 | --- | --- |
 | IsCompleted |	Has the tween finished all loops? |
 | IsPlaying | Is the tween active but not finished yet? |
@@ -76,6 +77,7 @@
 
 ### properties:
 
+| Name | Description |
 | --- | --- |
 | IsPlaying | Is the tween active but not finished yet? |
 
