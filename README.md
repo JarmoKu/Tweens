@@ -2,10 +2,10 @@
 
 ## Contents
 
-- # constructors
-- # tweenbase
-- # sequences
-- # extension-methods
+[Constructors](#constructors)
+[TweenBase](#tweenbase)
+[Sequence](#sequences)
+[Extension methods](#extension-methods)
 
 ## CONSTRUCTORS
 
