@@ -1,92 +1,95 @@
-﻿public enum LoopType 
-{ 
-    None,
-    Repeat, 
-    PingPong,
-    Additive
-}
-
-public enum TweenClass
+﻿namespace JK.Tweening
 {
-    Move,
-    Rotate,
-    Scale,
-    Jump,
-    PunchPosition,
-    PunchRotation,
-    PunchScale
-}
+    public enum LoopType
+    {
+        None,
+        Repeat,
+        PingPong,
+        Additive
+    }
 
-public enum TweenType
-{
-    FromTo,
-    From,
-    To
-}
+    public enum TweenClass
+    {
+        Move,
+        Rotate,
+        Scale,
+        Jump,
+        PunchPosition,
+        PunchRotation,
+        PunchScale
+    }
 
-public enum ImageTweenType 
-{ 
-    FromTo, 
-    From, 
-    To, 
-    Gradient 
-}
+    public enum TweenType
+    {
+        FromTo,
+        From,
+        To
+    }
 
-public enum NumberTweens 
-{ 
-    Float, 
-    Int 
-}
+    public enum ImageTweenType
+    {
+        FromTo,
+        From,
+        To,
+        Gradient
+    }
 
-public enum PlayOn
-{
-    None,
-    Start,
-    OnEnable
-}
+    public enum NumberTweens
+    {
+        Float,
+        Int
+    }
 
-public enum PunchType
-{
-    Position,
-    Rotation,
-    Scale
-}
+    public enum PlayOn
+    {
+        None,
+        Start,
+        OnEnable
+    }
 
-public enum EaseType
-{
-    Linear,
-    EaseInSine,
-    EaseOutSine,
-    EaseInOutSine,
-    EaseInQuad,
-    EaseOutQuad,
-    EaseInOutQuad,
-    EaseInCubic,
-    EaseOutCubic,
-    EaseInOutCubic,
-    EaseInQuart,
-    EaseOutQuart,
-    EaseInOutQuart,
-    EaseInQuint,
-    EaseOutQuint,
-    EaseInOutQuint,
-    EaseInExpo,
-    EaseOutExpo,
-    EaseInOutExpo,
-    EaseInCirc,
-    EaseOutCirc,
-    EaseInOutCirc,
-    EaseInBack,
-    EaseOutBack,
-    EaseInOutBack,
-    EaseInElastic,
-    EaseOutElastic,
-    EaseInOutElastic,
-    EaseInBounce,
-    EaseOutBounce,
-    EaseInOutBounce,
-    Spike,
-    InPunch,
-    OutPunch,
-    Shake
+    public enum PunchType
+    {
+        Position,
+        Rotation,
+        Scale
+    }
+
+    public enum EaseType
+    {
+        Linear,
+        EaseInSine,
+        EaseOutSine,
+        EaseInOutSine,
+        EaseInQuad,
+        EaseOutQuad,
+        EaseInOutQuad,
+        EaseInCubic,
+        EaseOutCubic,
+        EaseInOutCubic,
+        EaseInQuart,
+        EaseOutQuart,
+        EaseInOutQuart,
+        EaseInQuint,
+        EaseOutQuint,
+        EaseInOutQuint,
+        EaseInExpo,
+        EaseOutExpo,
+        EaseInOutExpo,
+        EaseInCirc,
+        EaseOutCirc,
+        EaseInOutCirc,
+        EaseInBack,
+        EaseOutBack,
+        EaseInOutBack,
+        EaseInElastic,
+        EaseOutElastic,
+        EaseInOutElastic,
+        EaseInBounce,
+        EaseOutBounce,
+        EaseInOutBounce,
+        Spike,
+        InPunch,
+        OutPunch,
+        Shake
+    }
 }
