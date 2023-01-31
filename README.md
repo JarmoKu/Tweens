@@ -9,26 +9,6 @@
 
 ## CONSTRUCTORS
 
-### Float
-
-- public FloatTween (float startingValue, float endValue, float duration)
-- public FloatTween (float startingValue, float endValue, float duration, Action<float> callback)
-- public FloatTween (float startingValue, float endValue, float duration, float increment, Action<float> callback)
-
-### Int
-
-- public IntTween (int startingValue, int endValue, float duration, Action<int> callback)
-- public IntTween (int startingValue, int endValue, float duration, int increment, Action<int> callback)
-
-### Image color
-
-- public ImageColorTween (Image image, Color start, Color end, float duration)
-- public ImageColorTween (Image image, Gradient gradient, float duration)
-
-### Transform jump
-
-- public JumpTween (Transform transform, Vector3 start, Vector3 peakPosition, Vector3 end, float duration, Space space = Space.Self)
-
 ### Transform move
 
 - public MoveTween (Transform transform, Vector3 start, Vector3 end, float duration, Space space = Space.Self)
@@ -40,6 +20,30 @@
 ### Transform scale
 
 - public ScaleTween (Transform transform, Vector3 start, Vector3 end, float duration)
+
+### Transform jump
+
+- public JumpTween (Transform transform, Vector3 start, Vector3 peakPosition, Vector3 end, float duration, Space space = Space.Self)
+
+### Float
+
+- public FloatTween (float startingValue, float endValue, float duration)
+- public FloatTween (float startingValue, float endValue, float duration, Action<float> callback)
+	- callback returns the changed value
+- public FloatTween (float startingValue, float endValue, float duration, float increment, Action<float> callback)
+	- callback returns the changed value
+
+### Int
+
+- public IntTween (int startingValue, int endValue, float duration, Action<int> callback)
+	- callback returns the changed value
+- public IntTween (int startingValue, int endValue, float duration, int increment, Action<int> callback)
+	- callback returns the changed value
+
+### Image color
+
+- public ImageColorTween (Image image, Color start, Color end, float duration)
+- public ImageColorTween (Image image, Gradient gradient, float duration)
 
 ### Material color
 
