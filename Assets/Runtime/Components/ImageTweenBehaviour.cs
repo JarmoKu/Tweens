@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 namespace JK.Tweening
 {
-    [RequireComponent (typeof (Image))]
     public class ImageTweenBehaviour : TweenBehaviourBase
     {
         #region PropertyNames for custom editor
