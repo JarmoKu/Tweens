@@ -9,20 +9,11 @@
 
 ## CONSTRUCTORS
 
-### Transform move
+### Transform
 
 - public MoveTween (Transform transform, Vector3 start, Vector3 end, float duration, Space space = Space.Self)
-
-### Transform rotate
-
 - public RotateTween (Transform transform, Vector3 start, Vector3 end, float duration, Space space = Space.Self)
-
-### Transform scale
-
 - public ScaleTween (Transform transform, Vector3 start, Vector3 end, float duration)
-
-### Transform jump
-
 - public JumpTween (Transform transform, Vector3 start, Vector3 peakPosition, Vector3 end, float duration, Space space = Space.Self)
 
 ### Float
