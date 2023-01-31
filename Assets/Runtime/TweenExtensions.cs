@@ -228,6 +228,107 @@ namespace JK.Tweening
         }
         #endregion
 
+        #region Material
+        public static SharedMaterialColorTween ColorFromTo (this Material image, Color start, Color end, float duration)
+        {
+            return new SharedMaterialColorTween (image, start, end, duration);
+        }
+
+        public static SharedMaterialColorTween ColorFrom (this Material image, Color start, float duration)
+        {
+            return new SharedMaterialColorTween (image, start, image.color, duration);
+        }
+
+        public static SharedMaterialColorTween ColorTo (this Material image, Color end, float duration)
+        {
+            return new SharedMaterialColorTween (image, image.color, end, duration);
+        }
+
+        public static SharedMaterialColorTween ColorThroughGradient (this Material image, Gradient gradient, float duration)
+        {
+            return new SharedMaterialColorTween (image, gradient, duration);
+        }
+
+        public static SharedMaterialColorTween AlphaFromTo (this Material image, float start, float end, float duration)
+        {
+            var startColor = image.color;
+            startColor.a = start;
+
+            var endColor = image.color;
+            endColor.a = end;
+
+            return new SharedMaterialColorTween (image, startColor, endColor, duration);
+        }
+
+        public static SharedMaterialColorTween AlphaFrom (this Material image, float start, float duration)
+        {
+            var startColor = image.color;
+            startColor.a = start;
+
+            return new SharedMaterialColorTween (image, startColor, image.color, duration);
+        }
+
+        public static SharedMaterialColorTween AlphaTo (this Material image, float end, float duration)
+        {
+            var endColor = image.color;
+            endColor.a = end;
+
+            return new SharedMaterialColorTween (image, image.color, endColor, duration);
+        }
+        #endregion
+
+        #region Renderer
+        public static RendererColorTween ColorFromTo (this Renderer renderer, int materialIndex, Color start, Color end, float duration)
+        {
+            return new RendererColorTween (renderer, materialIndex, start, end, duration);
+        }
+
+        public static RendererColorTween ColorFrom (this Renderer renderer, int materialIndex, Color start, float duration)
+        {
+            return new RendererColorTween (renderer, materialIndex, start, renderer.materials[materialIndex].color, duration);
+        }
+
+        public static RendererColorTween ColorTo (this Renderer renderer, int materialIndex, Color end, float duration)
+        {
+            return new RendererColorTween (renderer, materialIndex, renderer.materials[materialIndex].color, end, duration);
+        }
+
+        public static RendererColorTween ColorThroughGradient (this Renderer renderer, int materialIndex, Gradient gradient, float duration)
+        {
+            return new RendererColorTween (renderer, materialIndex, gradient, duration);
+        }
+
+        public static RendererColorTween AlphaFromTo (this Renderer renderer, int materialIndex, float start, float end, float duration)
+        {
+            var originalColor = renderer.materials[materialIndex].color;
+            var startColor = originalColor;
+            startColor.a = start;
+
+            var endColor = originalColor;
+            endColor.a = end;
+
+            return new RendererColorTween (renderer, materialIndex, startColor, endColor, duration);
+        }
+
+        public static RendererColorTween AlphaFrom (this Renderer renderer, int materialIndex, float start, float duration)
+        {
+            var originalColor = renderer.materials[materialIndex].color;
+            var startColor = originalColor;
+            startColor.a = start;
+
+            return new RendererColorTween (renderer, materialIndex, startColor, originalColor, duration);
+        }
+
+        public static RendererColorTween AlphaTo (this Renderer renderer, int materialIndex, float end, float duration)
+        {
+            var originalColor = renderer.materials[materialIndex].color;
+            var endColor = originalColor;
+            endColor.a = end;
+
+            return new RendererColorTween (renderer, materialIndex, originalColor, endColor, duration);
+        }
+        #endregion
+
         #region Enums
         public static bool Matches (this Space easeType, Space comparison)
         {
