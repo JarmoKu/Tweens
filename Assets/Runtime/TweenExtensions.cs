@@ -353,7 +353,7 @@ namespace JK.Tweening
         }
         #endregion
 
-        #region
+        #region Light
         public static LightColorTween ColorFromTo (this Light light, Color start, Color end, float duration)
         {
             return new LightColorTween (light, start, end, duration);
