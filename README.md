@@ -182,3 +182,20 @@ Is inherited by all tweens and so the public properties and methods can be used 
 - public static RendererColorTween AlphaFromTo (this Renderer renderer, int materialIndex, float start, float end, float duration)
 - public static RendererColorTween AlphaFrom (this Renderer renderer, int materialIndex, float start, float duration)
 - public static RendererColorTween AlphaTo (this Renderer renderer, int materialIndex, float end, float duration)
+
+### SpriteRenderer
+
+- public static SpriteColorTween ColorFromTo (this SpriteRenderer renderer, Color start, Color end, float duration)
+- public static SpriteColorTween ColorFrom (this SpriteRenderer renderer, Color start, float duration)
+- public static SpriteColorTween ColorTo (this SpriteRenderer renderer, Color end, float duration)
+- public static SpriteColorTween ColorThroughGradient (this SpriteRenderer renderer, Gradient gradient, float duration)
+- public static SpriteColorTween AlphaFromTo (this SpriteRenderer renderer, float start, float end, float duration)
+- public static SpriteColorTween AlphaFrom (this SpriteRenderer renderer, float start, float duration)
+- public static SpriteColorTween AlphaTo (this SpriteRenderer renderer, float end, float duration)
+
+### Light
+
+- public static LightColorTween ColorFromTo (this Light light, Color start, Color end, float duration)
+- public static LightColorTween ColorFrom (this Light light, Color start, float duration)
+- public static LightColorTween ColorTo (this Light light, Color end, float duration)
+- public static LightColorTween ColorThroughGradient (this Light light, Gradient gradient, float duration)
