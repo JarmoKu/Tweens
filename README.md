@@ -3,6 +3,7 @@
 ## Contents
 
 - [Constructors](#constructors)
+	- [Transform](#transform)
 - [TweenBase](#tweenbase)
 - [Sequence](#sequences)
 - [Extension methods](#extensions)
