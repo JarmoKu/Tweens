@@ -46,7 +46,17 @@
 - public RendererColorTween (Renderer image, int materialIndex, Color start, Color end, float duration)
 - public RendererColorTween (Renderer image, int materialIndex, Gradient gradient, float duration)
 
-## Tweenbase
+### Sprite renderer color
+
+- public SpriteColorTween (SpriteRenderer image, Color start, Color end, float duration)
+- public SpriteColorTween (SpriteRenderer image, Gradient gradient, float duration)
+
+### Light color
+
+- public LightColorTween (Light image, Color start, Color end, float duration)
+- public LightColorTween (Light image, Gradient gradient, float duration)
+
+## Tweenbase class
 
 Is inherited by all tweens and so the public properties and methods can be used through them as well.
 
@@ -70,7 +80,7 @@ Is inherited by all tweens and so the public properties and methods can be used 
 | SetLoops | Set how many times tween is repeated and in what manner |
 | SetLoopDelay | Set time between loops in seconds |
 
-### Events:
+### events:
 
 | Method | Description |
 | --- | --- |
@@ -98,7 +108,7 @@ Is inherited by all tweens and so the public properties and methods can be used 
 | AddDelay | Add delay in seconds at the end of the sequence |
 | Clear | Remove all tweens inside the sequence |
 
-## EXTENSIONS
+## Extensions
 
 ### Transform Move
 
