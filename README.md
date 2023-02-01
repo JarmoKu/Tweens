@@ -4,9 +4,32 @@
 
 - [Constructors](#constructors)
 	- [Transform](#transform)
+	- [Float](#float)	
+	- [Int](#int)
+	- [Image color](#image-color)
+	- [Material color](#material-color)
+	- [Renderer color](#renderer color)
+	- [Sprite renderer color](#sprite-renderer-color)
+	- [Light color](#light-color)
 - [TweenBase](#tweenbase)
+	- [properties](#properties)
+	- [public methods](#public-methods)
+	- [events](#events)
 - [Sequence](#sequences)
+	- [properties](#properties)
+	- [public methods](#public-methods)
 - [Extension methods](#extensions)
+	- [Transform Move](#transform-move)
+	- [Transform scale](#transform-scale)
+	- [Transform rotate](#transform-rotate)
+	- [Transform jump](#transform-jump)
+	- [Transform punch](#transform-punch)
+	- [Numbers](#numbers)
+	- [Image](#image)
+	- [Material](#material)
+	- [Renderer](#renderer)
+	- [SpriteRenderer](#spriterenderer)
+	- [Light](#light)
 
 ## Constructors
 
@@ -111,25 +134,25 @@ Is inherited by all tweens and so the public properties and methods can be used 
 
 ## Extensions
 
-### Transform Move
+### Transform move
 
 - public static MoveTween MoveFromTo (this Transform transform, Vector3 start, Vector3 end, float duration, Space space = Space.Self)
 - public static MoveTween MoveTo (this Transform transform, Vector3 end, float duration, Space space = Space.Self)
 - public static MoveTween MoveFrom (this Transform transform, Vector3 start, float duration, Space space = Space.Self)
 
-### Transform Scale
+### Transform scale
 
 - public static ScaleTween ScaleFromTo (this Transform transform, Vector3 start, Vector3 end, float duration)
 - public static ScaleTween ScaleTo (this Transform transform, Vector3 end, float duration)
 - public static ScaleTween ScaleFrom (this Transform transform, Vector3 start, float duration)
 
-### Transform Rotate
+### Transform rotate
 
 - public static RotateTween RotateFromTo (this Transform transform, Vector3 start, Vector3 end, float duration, Space space = Space.Self)
 - public static RotateTween RotateFrom (this Transform transform, Vector3 start, float duration, Space space = Space.Self)
 - public static RotateTween RotateTo (this Transform transform, Vector3 end, float duration, Space space = Space.Self)
 
-### Transform Jump
+### Transform jump
 
 - public static JumpTween JumpFromTo (this Transform transform, Vector3 start, Vector3 peak, Vector3 end, float duration, Space space = Space.Self)
 - public static JumpTween JumpFrom (this Transform transform, Vector3 start, Vector3 peak, float duration, Space space = Space.Self)
@@ -138,7 +161,7 @@ Is inherited by all tweens and so the public properties and methods can be used 
 - public static JumpTween JumpFrom (this Transform transform, Vector3 start, float height, float duration, Vector3 up, Space space = Space.Self)
 - public static JumpTween JumpTo (this Transform transform, Vector3 end, float height, float duration, Vector3 up, Space space = Space.Self)
 
-### Transform Punch
+### Transform punch
 
 - public static PunchPositionTween PunchPosition (this Transform transform, Vector3 targetPosition, float duration, Space space = Space.World)
 - public static PunchRotationTween PunchRotation (this Transform transform, Vector3 targetRotation, float duration, Space space = Space.World)
