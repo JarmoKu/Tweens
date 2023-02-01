@@ -1,5 +1,12 @@
 ﻿namespace JK.Tweening
 {
+    public enum ColorTarget
+    {
+        Image,
+        Renderer,
+        Material
+    }
+
     public enum LoopType
     {
         None,

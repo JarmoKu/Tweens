@@ -113,14 +113,14 @@ namespace JK.Tweening
         #endregion
 
         #region Punch
-        public static PunchPositionTween PunchPosition (this Transform transform, Vector3 targetScale, float duration, Space space = Space.World)
+        public static PunchPositionTween PunchPosition (this Transform transform, Vector3 targetPosition, float duration, Space space = Space.World)
         {
-            return new PunchPositionTween (transform, targetScale, duration, space);
+            return new PunchPositionTween (transform, targetPosition, duration, space);
         }
 
-        public static PunchRotationTween PunchRotation (this Transform transform, Vector3 targetScale, float duration, Space space = Space.World)
+        public static PunchRotationTween PunchRotation (this Transform transform, Vector3 targetRotation, float duration, Space space = Space.World)
         {
-            return new PunchRotationTween (transform, targetScale, duration, space);
+            return new PunchRotationTween (transform, targetRotation, duration, space);
         }
 
         public static PunchScaleTween PunchScale (this Transform transform, Vector3 targetScale, float duration)
@@ -148,34 +148,6 @@ namespace JK.Tweening
         public static IntTween TweenNumber (this int startValue, int endValue, float duration, int increment, Action<int> callback)
         {
             return new IntTween (startValue, endValue, duration, increment, callback); ;
-        }
-        #endregion
-
-        #region Transform
-        public static void SetPosition (this Transform transform, Vector3 position, Space space)
-        {
-            if (space.Matches (Space.Self))
-                transform.localPosition = position;
-            else
-                transform.position = position;
-        }
-
-        public static void SetRotation (this Transform transform, Vector3 rotation, Space space)
-        {
-            if (space.Matches (Space.Self))
-                transform.localRotation = Quaternion.Euler (rotation);
-            else
-                transform.rotation = Quaternion.Euler (rotation);
-        }
-
-        public static Vector3 GetPosition (this Transform transform, Space space)
-        {
-            return space.Matches (Space.World) ? transform.position : transform.localPosition;
-        }
-
-        public static Vector3 GetRotation (this Transform transform, Space space)
-        {
-            return space.Matches (Space.World) ? transform.eulerAngles : transform.localEulerAngles;
         }
         #endregion
 
@@ -330,11 +302,6 @@ namespace JK.Tweening
         #endregion
 
         #region Enums
-        public static bool Matches (this Space easeType, Space comparison)
-        {
-            return (int)easeType == (int)comparison;
-        }
-
         public static bool Matches (this LoopType easeType, LoopType comparison)
         {
             return (int)easeType == (int)comparison;
@@ -350,29 +317,67 @@ namespace JK.Tweening
             return (int)easeType == (int)comparison;
         }
 
-        public static bool Matches (this ImageTweenType easeType, ImageTweenType comparison)
+        public static bool Matches (this ColorTarget easeType, ColorTarget comparison)
         {
             return (int)easeType == (int)comparison;
         }
 
-        public static bool Matches (this NumberTweens easeType, NumberTweens comparison)
+        internal static bool Matches (this Space easeType, Space comparison)
         {
             return (int)easeType == (int)comparison;
         }
 
-        public static bool Matches (this PlayOn easeType, PlayOn comparison)
+        internal static bool Matches (this ImageTweenType easeType, ImageTweenType comparison)
         {
             return (int)easeType == (int)comparison;
         }
 
-        public static bool Matches (this PunchType easeType, PunchType comparison)
+        internal static bool Matches (this NumberTweens easeType, NumberTweens comparison)
         {
             return (int)easeType == (int)comparison;
         }
 
-        public static bool Matches (this EaseType easeType, EaseType comparison)
+        internal static bool Matches (this PlayOn easeType, PlayOn comparison)
         {
             return (int)easeType == (int)comparison;
+        }
+
+        internal static bool Matches (this PunchType easeType, PunchType comparison)
+        {
+            return (int)easeType == (int)comparison;
+        }
+
+        internal static bool Matches (this EaseType easeType, EaseType comparison)
+        {
+            return (int)easeType == (int)comparison;
+        }
+        #endregion
+
+        #region Transform
+        internal static void SetPosition (this Transform transform, Vector3 position, Space space)
+        {
+            if (space.Matches (Space.Self))
+                transform.localPosition = position;
+            else
+                transform.position = position;
+        }
+
+        internal static void SetRotation (this Transform transform, Vector3 rotation, Space space)
+        {
+            if (space.Matches (Space.Self))
+                transform.localRotation = Quaternion.Euler (rotation);
+            else
+                transform.rotation = Quaternion.Euler (rotation);
+        }
+
+        internal static Vector3 GetPosition (this Transform transform, Space space)
+        {
+            return space.Matches (Space.World) ? transform.position : transform.localPosition;
+        }
+
+        internal static Vector3 GetRotation (this Transform transform, Space space)
+        {
+            return space.Matches (Space.World) ? transform.eulerAngles : transform.localEulerAngles;
         }
         #endregion
     }

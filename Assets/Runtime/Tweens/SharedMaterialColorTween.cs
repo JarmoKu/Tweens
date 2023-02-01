@@ -38,7 +38,6 @@ namespace JK.Tweening
 
         public override void Update (float deltaTime)
         {
-            Debug.Log ($"UPDATE {_material.color}");
             if (TryProgress (deltaTime, out bool completedLoop))
             {
                 _material.color = _useGradient ? _gradient.Evaluate (_normalizedProgress) : Color.Lerp (_start, _end, _normalizedProgress);
