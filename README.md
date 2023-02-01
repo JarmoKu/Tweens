@@ -2,6 +2,13 @@
 
 ## Contents
 
+- [TweenBase](#tweenbase)
+	- [properties](#properties)
+	- [public methods](#public-methods)
+	- [events](#events)
+- [Sequence](#sequences)
+	- [properties](#properties)
+	- [public methods](#public-methods)
 - [Constructors](#constructors)
 	- [Transform](#transform)
 	- [Float](#float)	
@@ -11,13 +18,6 @@
 	- [Renderer color](#renderer-color)
 	- [SpriteRenderer color](#spriterenderer-color)
 	- [Light color](#light-color)
-- [TweenBase](#tweenbase)
-	- [properties](#properties)
-	- [public methods](#public-methods)
-	- [events](#events)
-- [Sequence](#sequences)
-	- [properties](#properties)
-	- [public methods](#public-methods)
 - [Extension methods](#extensions)
 	- [Transform Move](#transform-move)
 	- [Transform scale](#transform-scale)
@@ -30,55 +30,6 @@
 	- [Renderer](#renderer)
 	- [SpriteRenderer](#spriterenderer)
 	- [Light](#light)
-
-## Constructors
-
-### Transform
-
-- public MoveTween (Transform transform, Vector3 start, Vector3 end, float duration, Space space = Space.Self)
-- public RotateTween (Transform transform, Vector3 start, Vector3 end, float duration, Space space = Space.Self)
-- public ScaleTween (Transform transform, Vector3 start, Vector3 end, float duration)
-- public JumpTween (Transform transform, Vector3 start, Vector3 peakPosition, Vector3 end, float duration, Space space = Space.Self)
-
-### Float
-
-- public FloatTween (float startingValue, float endValue, float duration)
-- public FloatTween (float startingValue, float endValue, float duration, Action<float> callback)
-	- callback returns the changed value
-- public FloatTween (float startingValue, float endValue, float duration, float increment, Action<float> callback)
-	- callback returns the changed value
-
-### Int
-
-- public IntTween (int startingValue, int endValue, float duration, Action<int> callback)
-	- callback returns the changed value
-- public IntTween (int startingValue, int endValue, float duration, int increment, Action<int> callback)
-	- callback returns the changed value
-
-### Image color
-
-- public ImageColorTween (Image image, Color start, Color end, float duration)
-- public ImageColorTween (Image image, Gradient gradient, float duration)
-
-### Material color
-
-- public SharedMaterialColorTween (Material material, Color start, Color end, float duration)
-- public SharedMaterialColorTween (Material material, Gradient gradient, float duration)
-
-### Renderer color
-
-- public RendererColorTween (Renderer image, int materialIndex, Color start, Color end, float duration)
-- public RendererColorTween (Renderer image, int materialIndex, Gradient gradient, float duration)
-
-### SpriteRenderer color
-
-- public SpriteColorTween (SpriteRenderer image, Color start, Color end, float duration)
-- public SpriteColorTween (SpriteRenderer image, Gradient gradient, float duration)
-
-### Light color
-
-- public LightColorTween (Light image, Color start, Color end, float duration)
-- public LightColorTween (Light image, Gradient gradient, float duration)
 
 ## Tweenbase class
 
@@ -131,6 +82,55 @@ Is inherited by all tweens and so the public properties and methods can be used 
 | Join | Add tween at specific time of the sequence |
 | AddDelay | Add delay in seconds at the end of the sequence |
 | Clear | Remove all tweens inside the sequence |
+
+## Constructors
+
+### Transform
+
+- public MoveTween (Transform transform, Vector3 start, Vector3 end, float duration, Space space = Space.Self)
+- public RotateTween (Transform transform, Vector3 start, Vector3 end, float duration, Space space = Space.Self)
+- public ScaleTween (Transform transform, Vector3 start, Vector3 end, float duration)
+- public JumpTween (Transform transform, Vector3 start, Vector3 peakPosition, Vector3 end, float duration, Space space = Space.Self)
+
+### Float
+
+- public FloatTween (float startingValue, float endValue, float duration)
+- public FloatTween (float startingValue, float endValue, float duration, Action<float> callback)
+	- callback returns the changed value
+- public FloatTween (float startingValue, float endValue, float duration, float increment, Action<float> callback)
+	- callback returns the changed value
+
+### Int
+
+- public IntTween (int startingValue, int endValue, float duration, Action<int> callback)
+	- callback returns the changed value
+- public IntTween (int startingValue, int endValue, float duration, int increment, Action<int> callback)
+	- callback returns the changed value
+
+### Image color
+
+- public ImageColorTween (Image image, Color start, Color end, float duration)
+- public ImageColorTween (Image image, Gradient gradient, float duration)
+
+### Material color
+
+- public SharedMaterialColorTween (Material material, Color start, Color end, float duration)
+- public SharedMaterialColorTween (Material material, Gradient gradient, float duration)
+
+### Renderer color
+
+- public RendererColorTween (Renderer image, int materialIndex, Color start, Color end, float duration)
+- public RendererColorTween (Renderer image, int materialIndex, Gradient gradient, float duration)
+
+### SpriteRenderer color
+
+- public SpriteColorTween (SpriteRenderer image, Color start, Color end, float duration)
+- public SpriteColorTween (SpriteRenderer image, Gradient gradient, float duration)
+
+### Light color
+
+- public LightColorTween (Light image, Color start, Color end, float duration)
+- public LightColorTween (Light image, Gradient gradient, float duration)
 
 ## Extensions
 
