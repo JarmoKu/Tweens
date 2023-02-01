@@ -9,7 +9,7 @@
 	- [Image color](#image-color)
 	- [Material color](#material-color)
 	- [Renderer color](#renderer color)
-	- [Sprite renderer color](#sprite-renderer-color)
+	- [Sprite color](#sprite-color)
 	- [Light color](#light-color)
 - [TweenBase](#tweenbase)
 	- [properties](#properties)
@@ -70,7 +70,7 @@
 - public RendererColorTween (Renderer image, int materialIndex, Color start, Color end, float duration)
 - public RendererColorTween (Renderer image, int materialIndex, Gradient gradient, float duration)
 
-### Sprite renderer color
+### Sprite color
 
 - public SpriteColorTween (SpriteRenderer image, Color start, Color end, float duration)
 - public SpriteColorTween (SpriteRenderer image, Gradient gradient, float duration)
