@@ -5,12 +5,13 @@ namespace JK.Tweening
 {
     public class ImageColorTween : TweenBase
     {
-        protected Image _image;
-        protected Gradient _gradient;
-        protected Color _originalColor;
-        protected Color _start;
-        protected Color _end;
-        protected bool _useGradient;
+        private readonly Image _image;
+        private readonly Color _originalColor;
+
+        private bool _useGradient;
+        private Gradient _gradient;
+        private Color _start;
+        private Color _end;
 
         public ImageColorTween (Image image, Color start, Color end, float duration)
         {
@@ -28,6 +29,19 @@ namespace JK.Tweening
             _originalColor = image.color;
             _gradient = gradient;
             _duration = duration;
+            _useGradient = true;
+        }
+
+        public void SetColors (Color start, Color end)
+        {
+            _start = start;
+            _end = end;
+            _useGradient = false;
+        }
+
+        public void SetGradient (Gradient gradient)
+        {
+            _gradient = gradient;
             _useGradient = true;
         }
 

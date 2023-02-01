@@ -6,10 +6,11 @@ namespace JK.Tweening
     public class FloatTween : TweenBase
     {
         private readonly Action<float> _callback;
-        private readonly float _startValue;
-        private readonly float _endValue;
-        private readonly float _interval;
         private float _intervalProgress;
+
+        private float _startValue;
+        private float _endValue;
+        private float _interval;
 
         public FloatTween (float startingValue, float endValue, float duration)
         {
@@ -33,6 +34,13 @@ namespace JK.Tweening
             _callback = callback;
             _duration = duration;
             _interval = increment;
+        }
+
+        public void SetTargets (float start, float end, float interval)
+        {
+            _startValue = start;
+            _endValue = end;
+            _interval = interval;
         }
 
         public override void Reset ()

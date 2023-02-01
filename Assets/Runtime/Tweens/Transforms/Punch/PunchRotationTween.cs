@@ -4,10 +4,11 @@ namespace JK.Tweening
 {
     public class PunchRotationTween : TweenBase
     {
-        protected Transform _transform;
-        protected Vector3 _startRotation;
-        protected Vector3 _targetRotation;
-        protected Space _space;
+        private readonly Transform _transform;
+
+        private Vector3 _startRotation;
+        private Vector3 _targetRotation;
+        private Space _space;
 
         public PunchRotationTween (Transform transform, Vector3 targetRotation, float duration, Space space)
         {
@@ -15,6 +16,13 @@ namespace JK.Tweening
             _startRotation = transform.GetRotation (space);
             _targetRotation = targetRotation;
             _duration = duration;
+            _space = space;
+        }
+
+        public void SetTargets (Vector3 start, Vector3 end, Space space)
+        {
+            _startRotation = start;
+            _targetRotation = end;
             _space = space;
         }
 

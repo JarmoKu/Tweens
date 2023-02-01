@@ -16,26 +16,11 @@ namespace JK.Tweening
             if (UpdateHasBeenCalledThisFrame ())
                 return;
 
-            for (int i = 0; i < _tweens.Count; i++)
+            foreach (var tween in _tweens)
             {
-                if (_tweens[i].IsPlaying)
-                    _tweens[i].Update (Time.deltaTime * CustomTimeScale);
+                if (tween.IsPlaying)
+                    tween.Update (Time.deltaTime * CustomTimeScale);
             }
-        }
-
-        public static void AddTween (IProgressable tween)
-        {
-            if (Instance == default && Application.isPlaying)
-                CreateInstance ();
-
-            if (!_tweens.Contains (tween))
-                _tweens.Add (tween);
-        }
-
-        public static void RemoveTween (IProgressable tween)
-        {
-            if (_tweens.Contains (tween))
-                _tweens.Remove (tween);
         }
 
         public static void SetCustomTimeScale (float timeScale)
@@ -46,6 +31,21 @@ namespace JK.Tweening
         public static void ResetCustomTimescale ()
         {
             CustomTimeScale = 1f;
+        }
+
+        internal static void AddTween (IProgressable tween)
+        {
+            if (Instance == default && Application.isPlaying)
+                CreateInstance ();
+
+            if (!_tweens.Contains (tween))
+                _tweens.Add (tween);
+        }
+
+        internal static void RemoveTween (IProgressable tween)
+        {
+            if (_tweens.Contains (tween))
+                _tweens.Remove (tween);
         }
 
         private static void CreateInstance ()

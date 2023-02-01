@@ -25,7 +25,7 @@ namespace JK.Tweening
             TweenBehaviourBase.StoppedTween += StopPreview;
         }
 
-        public static void StartPreviev (TweenBase tween)
+        private static void StartPreviev (TweenBase tween)
         {
             StopPreview ();
 
@@ -38,7 +38,7 @@ namespace JK.Tweening
             EditorApplication.QueuePlayerLoopUpdate ();
         }
 
-        public static void StopPreview ()
+        private static void StopPreview ()
         {
             ActivePreviews.Clear ();
 

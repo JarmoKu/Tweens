@@ -12,18 +12,17 @@ namespace JK.Tweening
         public bool IsCompleted { get; private set; }
 		public bool IsPlaying { get; private set; }
 
-		protected float _loopDelay;
-		protected float _loopDelayLeft;
-		protected float _loopsDone;
+		private float _loopDelay;
+        private float _loopDelayLeft;
+        private float _loopsDone;
+        private EaseType _easeType = EaseType.Linear;
 
-		protected float _totalProgress;
+        protected int _loopCount;
+        protected LoopType _loopType = LoopType.None;
+
+        protected float _totalProgress;
 		protected float _normalizedProgress;
 		protected float _duration;
-
-		protected int _currentLoop;
-		protected int _loopCount;
-		protected LoopType _loopType = LoopType.None;
-		protected EaseType _easeType = EaseType.Linear;
 
         public float Duration => _duration;
         public abstract void Update (float deltaTime);
@@ -47,6 +46,11 @@ namespace JK.Tweening
 			BaseReset ();
 			Play ();
 		}
+
+        public void SetDuration (float duration)
+        {
+            _duration = duration;
+        }
 
         public void SetEase (EaseType easeType)
         {
@@ -86,7 +90,6 @@ namespace JK.Tweening
         protected void BaseReset ()
         {
             _totalProgress = 0f;
-            _currentLoop = 0;
             _loopsDone = 0;
             _loopDelayLeft = 0f;
             _normalizedProgress = 0f;

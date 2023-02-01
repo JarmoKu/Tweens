@@ -4,12 +4,13 @@ namespace JK.Tweening
 {
     public class SharedMaterialColorTween : TweenBase
     {
-        protected Material _material;
-        protected Gradient _gradient;
-        protected Color _originalColor;
-        protected Color _start;
-        protected Color _end;
-        protected bool _useGradient;
+        private readonly Material _material;
+        private Gradient _gradient;
+        private bool _useGradient;
+        private readonly Color _originalColor;
+
+        private Color _start;
+        private Color _end;
 
         public SharedMaterialColorTween (Material material, Color start, Color end, float duration)
         {
@@ -27,6 +28,19 @@ namespace JK.Tweening
             _originalColor = material.color;
             _gradient = gradient;
             _duration = duration;
+            _useGradient = true;
+        }
+
+        public void SetColors (Color start, Color end)
+        {
+            _start = start;
+            _end = end;
+            _useGradient = false;
+        }
+
+        public void SetGradient (Gradient gradient)
+        {
+            _gradient = gradient;
             _useGradient = true;
         }
 

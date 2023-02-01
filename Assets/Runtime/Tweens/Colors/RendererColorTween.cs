@@ -4,13 +4,14 @@ namespace JK.Tweening
 {
     public class RendererColorTween : TweenBase
     {
-        protected Renderer _renderer;
-        protected Gradient _gradient;
-        protected Color _originalColor;
-        protected Color _start;
-        protected Color _end;
-        protected bool _useGradient;
-        protected int _materialIndex;
+        private readonly Renderer _renderer;
+        private readonly Color _originalColor;
+
+        private Gradient _gradient;
+        private bool _useGradient;
+        private int _materialIndex;
+        private Color _start;
+        private Color _end;
 
         public RendererColorTween (Renderer image, int materialIndex, Color start, Color end, float duration)
         {
@@ -29,6 +30,21 @@ namespace JK.Tweening
             _originalColor = image.materials[materialIndex].color;
             _gradient = gradient;
             _duration = duration;
+            _useGradient = true;
+            _materialIndex = materialIndex;
+        }
+
+        public void SetColors (Color start, Color end, int materialIndex)
+        {
+            _start = start;
+            _end = end;
+            _useGradient = false;
+            _materialIndex = materialIndex;
+        }
+
+        public void SetGradient (Gradient gradient, int materialIndex)
+        {
+            _gradient = gradient;
             _useGradient = true;
             _materialIndex = materialIndex;
         }

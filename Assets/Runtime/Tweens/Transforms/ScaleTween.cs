@@ -4,10 +4,10 @@ namespace JK.Tweening
 {
     public class ScaleTween : TweenBase
     {
-        protected Transform _transform;
-        protected Vector3 _originalScale;
-        protected Vector3 _startScale;
-        protected Vector3 _endScale;
+        private readonly Transform _transform;
+        private readonly Vector3 _originalScale;
+        private Vector3 _startScale;
+        private Vector3 _endScale;
 
         public ScaleTween (Transform transform, Vector3 start, Vector3 end, float duration)
         {
@@ -16,6 +16,12 @@ namespace JK.Tweening
             _startScale = start;
             _endScale = end;
             _duration = duration;
+        }
+
+        public void SetTargets (Vector3 start, Vector3 end)
+        {
+            _startScale = start;
+            _endScale = end;
         }
 
         public override void Update (float deltaTime)
@@ -32,7 +38,7 @@ namespace JK.Tweening
 
         public override void Reset ()
         {
-            _transform.localScale = _startScale;
+            _transform.localScale = _originalScale;
             BaseReset ();
         }
     }

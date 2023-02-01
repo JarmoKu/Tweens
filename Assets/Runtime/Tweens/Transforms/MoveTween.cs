@@ -4,11 +4,11 @@ namespace JK.Tweening
 {
     public class MoveTween : TweenBase
     {
-        protected Transform _transform;
-        protected Vector3 _originalStart;
-        protected Vector3 _start;
-        protected Vector3 _end;
-        protected Space _space;
+        private readonly Transform _transform;
+        private readonly Vector3 _originalStart;
+        private Vector3 _start;
+        private Vector3 _end;
+        private Space _space;
 
         public MoveTween (Transform transform, Vector3 start, Vector3 end, float duration, Space space = Space.Self)
         {
@@ -17,6 +17,13 @@ namespace JK.Tweening
             _start = start;
             _end = end;
             _duration = duration;
+            _space = space;
+        }
+
+        public void SetTargets (Vector3 start, Vector3 end, Space space)
+        {
+            _start = start;
+            _end = end;
             _space = space;
         }
 
