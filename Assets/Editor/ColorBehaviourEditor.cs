@@ -45,25 +45,7 @@ namespace JK.Tweening
 
         private void DrawInspector (ColorBehaviour tweenBehaviour, ColorTarget colorTarget)
         {
-            var hideButtons = colorTarget.Matches (ColorTarget.Renderer) && !Application.isPlaying;
-
-            if (hideButtons)
-            {
-                EditorGUILayout.HelpBox ("Renderer tween can only be previewed in playmode", MessageType.Info);
-            }
-            else
-            {
-                EditorGUILayout.BeginHorizontal ();
-
-                if (GUILayout.Button ("Play"))
-                    tweenBehaviour.Play ();
-
-                if (GUILayout.Button ("Stop"))
-                    tweenBehaviour.Stop ();
-
-                EditorGUILayout.EndHorizontal ();
-                EditorGUILayout.Space ();
-            }
+            TryDrawButtons (tweenBehaviour, colorTarget);
 
             if (_propertiesToHide.Count > 0)
             {
@@ -77,7 +59,58 @@ namespace JK.Tweening
             }
         }
 
+        private void TryDrawButtons (ColorBehaviour tweenBehaviour, ColorTarget colorTarget)
+        {
+            var hideButtons = colorTarget.Matches (ColorTarget.Renderer) && !Application.isPlaying;
+            if (hideButtons)
+            {
+                EditorGUILayout.HelpBox ("Renderer tween can only be previewed in playmode", MessageType.Info);
+                return;
+            }
+
+            EditorGUILayout.BeginHorizontal ();
+
+            if (GUILayout.Button ("Play"))
+                tweenBehaviour.Play ();
+
+            if (GUILayout.Button ("Stop"))
+                tweenBehaviour.Stop ();
+
+            EditorGUILayout.EndHorizontal ();
+            EditorGUILayout.Space ();
+        }
+
         private void SelectPropertiesToHide (ColorBehaviour colorBehaviour, ImageTweenType tweenType, ColorTarget colorTarget)
+        {
+            ShowOrHideColoFields (tweenType);
+
+            ShowOrHideLoopProperties ();
+
+            var targetSelf = serializedObject.FindProperty (_targetSelfProperty).boolValue;
+
+            if (!colorTarget.Matches (ColorTarget.Renderer))
+                _propertiesToHide.Add (_materialIndexProperty);
+
+            if (colorTarget.Matches (ColorTarget.Material))
+            {
+                if (targetSelf)
+                    colorBehaviour.SetTargetSelf (false);
+
+                _propertiesToHide.Add (_targetSelfProperty);
+            }
+
+            ShowOrHideTargetProperties (targetSelf, colorTarget);
+        }
+
+        private void ShowOrHideLoopProperties ()
+        {
+            var loopType = (LoopType)serializedObject.FindProperty (_loopTypeProperty).intValue;
+
+            if (loopType.Matches (LoopType.None))
+                _propertiesToHide.AddRange (_loopProperties);
+        }
+
+        private void ShowOrHideColoFields (ImageTweenType tweenType)
         {
             switch (tweenType)
             {
@@ -97,66 +130,34 @@ namespace JK.Tweening
                     _propertiesToHide.Add (_endProperty);
                     break;
             }
+        }
 
-            if (!colorTarget.Matches (ColorTarget.Renderer))
-                _propertiesToHide.Add (_materialIndexProperty);
+        private void ShowOrHideTargetProperties (bool targetSelf, ColorTarget colorTarget)
+        {
+            _propertiesToHide.Add (_rendererProperty);
+            _propertiesToHide.Add (_materialProperty);
+            _propertiesToHide.Add (_imageProperty);
+            _propertiesToHide.Add (_spriteProperty);
+            _propertiesToHide.Add (_lightProperty);
 
-            var loopType = (LoopType)serializedObject.FindProperty (_loopTypeProperty).intValue;
-
-            if (loopType.Matches (LoopType.None))
-                _propertiesToHide.AddRange (_loopProperties);
-
-            var targetSelf = serializedObject.FindProperty (_targetSelfProperty).boolValue;
-
-            if (colorTarget.Matches (ColorTarget.Material))
-            {
-                if (targetSelf)
-                    colorBehaviour.SetTargetSelf (false);
-
-                _propertiesToHide.Add (_targetSelfProperty);
-            }
-
-            if (targetSelf)
-            {
-                _propertiesToHide.Add (_rendererProperty);
-                _propertiesToHide.Add (_materialProperty);
-                _propertiesToHide.Add (_imageProperty);
-                _propertiesToHide.Add (_spriteProperty);
-                _propertiesToHide.Add (_lightProperty);
-            }
-            else
+            if (!targetSelf)
             {
                 switch (colorTarget)
                 {
                     case ColorTarget.Image:
-                        _propertiesToHide.Add (_rendererProperty);
-                        _propertiesToHide.Add (_materialProperty);
-                        _propertiesToHide.Add (_spriteProperty);
-                        _propertiesToHide.Add (_lightProperty);
+                        _propertiesToHide.Remove (_imageProperty);
                         break;
                     case ColorTarget.Material:
-                        _propertiesToHide.Add (_rendererProperty);
-                        _propertiesToHide.Add (_imageProperty);
-                        _propertiesToHide.Add (_spriteProperty);
-                        _propertiesToHide.Add (_lightProperty);
+                        _propertiesToHide.Remove (_materialProperty);
                         break;
                     case ColorTarget.Renderer:
-                        _propertiesToHide.Add (_materialProperty);
-                        _propertiesToHide.Add (_imageProperty);
-                        _propertiesToHide.Add (_spriteProperty);
-                        _propertiesToHide.Add (_lightProperty);
+                        _propertiesToHide.Remove (_rendererProperty);
                         break;
                     case ColorTarget.SpriteRenderer:
-                        _propertiesToHide.Add (_rendererProperty);
-                        _propertiesToHide.Add (_materialProperty);
-                        _propertiesToHide.Add (_imageProperty);
-                        _propertiesToHide.Add (_lightProperty);
+                        _propertiesToHide.Remove (_spriteProperty);
                         break;
                     case ColorTarget.Light:
-                        _propertiesToHide.Add (_rendererProperty);
-                        _propertiesToHide.Add (_materialProperty);
-                        _propertiesToHide.Add (_imageProperty);
-                        _propertiesToHide.Add (_spriteProperty);
+                        _propertiesToHide.Remove (_lightProperty);
                         break;
                 }
             }

@@ -210,80 +210,19 @@ namespace JK.Tweening
         {
             if (m_targetSelf)
             {
-                switch (m_colorTarget)
-                {
-                    case ColorTarget.Image:
-                        m_targetRenderer = default;
-                        m_targetImage = GetComponent<Image> ();
-                        m_targetMaterial = default;
-                        m_targetSpriteRenderer = default;
-                        m_targetLight = default;
-                        break;
-                    case ColorTarget.Material:
-                        m_targetRenderer = default;
-                        m_targetImage = default;
-                        m_targetMaterial = default;
-                        m_targetSpriteRenderer = default;
-                        m_targetLight = default;
-                        break;
-                    case ColorTarget.Renderer:
-                        m_targetRenderer = GetComponent<Renderer> ();
-                        m_targetImage = default;
-                        m_targetMaterial = default;
-                        m_targetSpriteRenderer = default;
-                        m_targetLight = default;
-                        break;
-                    case ColorTarget.SpriteRenderer:
-                        m_targetRenderer = default;
-                        m_targetImage = default;
-                        m_targetMaterial = default;
-                        m_targetSpriteRenderer = GetComponent<SpriteRenderer> ();
-                        m_targetLight = default;
-                        break;
-                    case ColorTarget.Light:
-                        m_targetRenderer = default;
-                        m_targetImage = default;
-                        m_targetMaterial = default;
-                        m_targetSpriteRenderer = default;
-                        m_targetLight = GetComponent<Light> ();
-                        break;
-                }
+                m_targetMaterial = default;
+                m_targetLight = m_colorTarget.Matches (ColorTarget.Light) ? GetComponent<Light> () : default;
+                m_targetImage = m_colorTarget.Matches (ColorTarget.Image) ? GetComponent<Image> () : default;
+                m_targetRenderer = m_colorTarget.Matches (ColorTarget.Renderer) ? GetComponent<Renderer> () : default;
+                m_targetSpriteRenderer = m_colorTarget.Matches (ColorTarget.SpriteRenderer) ? GetComponent<SpriteRenderer> () : default;
             }
             else
             {
-                switch (m_colorTarget)
-                {
-                    case ColorTarget.Image:
-                        m_targetRenderer = default;
-                        m_targetMaterial = default;
-                        m_targetSpriteRenderer = default;
-                        m_targetLight = default;
-                        break;
-                    case ColorTarget.Material:
-                        m_targetRenderer = default;
-                        m_targetImage = default;
-                        m_targetSpriteRenderer = default;
-                        m_targetLight = default;
-                        break;
-                    case ColorTarget.Renderer:
-                        m_targetImage = default;
-                        m_targetMaterial = default;
-                        m_targetSpriteRenderer = default;
-                        m_targetLight = default;
-                        break;
-                    case ColorTarget.SpriteRenderer:
-                        m_targetRenderer = default;
-                        m_targetImage = default;
-                        m_targetMaterial = default;
-                        m_targetLight = default;
-                        break;
-                    case ColorTarget.Light:
-                        m_targetRenderer = default;
-                        m_targetImage = default;
-                        m_targetMaterial = default;
-                        m_targetSpriteRenderer = default;
-                        break;
-                }
+                m_targetMaterial = m_colorTarget.Matches (ColorTarget.Material) ? m_targetMaterial : default;
+                m_targetLight = m_colorTarget.Matches (ColorTarget.Light) ? m_targetLight : default;
+                m_targetImage = m_colorTarget.Matches (ColorTarget.Image) ? m_targetImage : default;
+                m_targetRenderer = m_colorTarget.Matches (ColorTarget.Renderer) ? m_targetRenderer : default;
+                m_targetSpriteRenderer = m_colorTarget.Matches (ColorTarget.SpriteRenderer) ? m_targetSpriteRenderer : default;
             }
         }
     }
