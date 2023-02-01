@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace JK.Tweening
@@ -52,6 +53,8 @@ namespace JK.Tweening
 
         [Space]
         [SerializeField] private Gradient m_gradient;
+        [Space]
+        [SerializeField] private UnityEvent m_onCompleted;
 
         public void SetTargetSelf (bool targetSelf) => m_targetSelf = targetSelf;
 
@@ -76,6 +79,7 @@ namespace JK.Tweening
         {
             ResetColor ();
             base.Stop ();
+            m_onCompleted.Invoke ();
         }
 
         public override void Restart ()
