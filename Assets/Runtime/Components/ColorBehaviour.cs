@@ -13,6 +13,7 @@ namespace JK.Tweening
         public static string TargetImagePropertyName => nameof (m_targetImage);
         public static string TargetRendererPropertyName => nameof (m_targetRenderer);
         public static string TargetMaterialPropertyName => nameof (m_targetMaterial);
+        public static string TargetSpritePropertyName => nameof (m_targetSpriteRenderer);
         public static string MaterialIndexPropertyName => nameof (m_materialIndex);
         public static string LoopCountPropertyName => nameof (m_loopCount);
         public static string LoopDelayPropertyName => nameof (m_loopDelay);
@@ -28,6 +29,7 @@ namespace JK.Tweening
         [SerializeField] private Image m_targetImage;
         [SerializeField] private Renderer m_targetRenderer;
         [SerializeField] private Material m_targetMaterial;
+        [SerializeField] private SpriteRenderer m_targetSpriteRenderer;
         [SerializeField] private int m_materialIndex;
         [Space]
 
@@ -101,6 +103,7 @@ namespace JK.Tweening
                 ColorTarget.Image => ImageTween (),
                 ColorTarget.Material => MaterialTween (),
                 ColorTarget.Renderer => RendererTween (),
+                ColorTarget.SpriteRenderer => SpriteTween(),
                 _ => default,
             };
         }
@@ -141,6 +144,18 @@ namespace JK.Tweening
             };
         }
 
+        private SpriteColorTween SpriteTween ()
+        {
+            return m_tweenType switch
+            {
+                ImageTweenType.FromTo => m_targetSpriteRenderer.ColorFromTo (m_startColor, m_endColor, m_duration),
+                ImageTweenType.From => m_targetSpriteRenderer.ColorFrom (m_startColor, m_duration),
+                ImageTweenType.To => m_targetSpriteRenderer.ColorTo (m_endColor, m_duration),
+                ImageTweenType.Gradient => m_targetSpriteRenderer.ColorThroughGradient (m_gradient, m_duration),
+                _ => default,
+            };
+        }
+
         private Color CurrentColor ()
         {
             return m_colorTarget switch
@@ -148,6 +163,7 @@ namespace JK.Tweening
                 ColorTarget.Image => m_targetImage.color,
                 ColorTarget.Material => m_targetMaterial.color,
                 ColorTarget.Renderer => m_targetRenderer.materials[m_materialIndex].color,
+                ColorTarget.SpriteRenderer => m_targetSpriteRenderer.color,
                 _ => new Color (1f, 0.4f, 0.7f, 1f),
             };
         }
@@ -165,6 +181,9 @@ namespace JK.Tweening
                 case ColorTarget.Renderer:
                     m_targetRenderer.materials[m_materialIndex].color = CurrentColor ();
                     break;
+                case ColorTarget.SpriteRenderer:
+                    m_targetSpriteRenderer.color = CurrentColor ();
+                    break;
             }
         }
 
@@ -178,16 +197,25 @@ namespace JK.Tweening
                         m_targetRenderer = default;
                         m_targetImage = GetComponent<Image> ();
                         m_targetMaterial = default;
+                        m_targetSpriteRenderer = default;
                         break;
                     case ColorTarget.Material:
                         m_targetRenderer = default;
                         m_targetImage = default;
                         m_targetMaterial = default;
+                        m_targetSpriteRenderer = default;
                         break;
                     case ColorTarget.Renderer:
                         m_targetRenderer = GetComponent<Renderer> ();
                         m_targetImage = default;
                         m_targetMaterial = default;
+                        m_targetSpriteRenderer = default;
+                        break;
+                    case ColorTarget.SpriteRenderer:
+                        m_targetRenderer = default;
+                        m_targetImage = default;
+                        m_targetMaterial = default;
+                        m_targetSpriteRenderer = GetComponent<SpriteRenderer> ();
                         break;
                 }
             }
@@ -198,12 +226,20 @@ namespace JK.Tweening
                     case ColorTarget.Image:
                         m_targetRenderer = default;
                         m_targetMaterial = default;
+                        m_targetSpriteRenderer = default;
                         break;
                     case ColorTarget.Material:
                         m_targetRenderer = default;
                         m_targetImage = default;
+                        m_targetSpriteRenderer = default;
                         break;
                     case ColorTarget.Renderer:
+                        m_targetImage = default;
+                        m_targetMaterial = default;
+                        m_targetSpriteRenderer = default;
+                        break;
+                    case ColorTarget.SpriteRenderer:
+                        m_targetRenderer = default;
                         m_targetImage = default;
                         m_targetMaterial = default;
                         break;

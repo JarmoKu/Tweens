@@ -301,6 +301,58 @@ namespace JK.Tweening
         }
         #endregion
 
+        #region SpriteRenderer
+        public static SpriteColorTween ColorFromTo (this SpriteRenderer renderer, Color start, Color end, float duration)
+        {
+            return new SpriteColorTween (renderer, start, end, duration);
+        }
+
+        public static SpriteColorTween ColorFrom (this SpriteRenderer renderer, Color start, float duration)
+        {
+            return new SpriteColorTween (renderer, start, renderer.color, duration);
+        }
+
+        public static SpriteColorTween ColorTo (this SpriteRenderer renderer, Color end, float duration)
+        {
+            return new SpriteColorTween (renderer, renderer.color, end, duration);
+        }
+
+        public static SpriteColorTween ColorThroughGradient (this SpriteRenderer renderer, Gradient gradient, float duration)
+        {
+            return new SpriteColorTween (renderer, gradient, duration);
+        }
+
+        public static SpriteColorTween AlphaFromTo (this SpriteRenderer renderer, float start, float end, float duration)
+        {
+            var originalColor = renderer.color;
+            var startColor = originalColor;
+            startColor.a = start;
+
+            var endColor = originalColor;
+            endColor.a = end;
+
+            return new SpriteColorTween (renderer, startColor, endColor, duration);
+        }
+
+        public static SpriteColorTween AlphaFrom (this SpriteRenderer renderer, float start, float duration)
+        {
+            var originalColor = renderer.color;
+            var startColor = originalColor;
+            startColor.a = start;
+
+            return new SpriteColorTween (renderer, startColor, originalColor, duration);
+        }
+
+        public static SpriteColorTween AlphaTo (this SpriteRenderer renderer, float end, float duration)
+        {
+            var originalColor = renderer.color;
+            var endColor = originalColor;
+            endColor.a = end;
+
+            return new SpriteColorTween (renderer, originalColor, endColor, duration);
+        }
+        #endregion
+
         #region Enums
         public static bool Matches (this LoopType easeType, LoopType comparison)
         {

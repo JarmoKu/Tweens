@@ -13,6 +13,7 @@ namespace JK.Tweening
         private readonly string _rendererProperty = ColorBehaviour.TargetRendererPropertyName;
         private readonly string _imageProperty = ColorBehaviour.TargetImagePropertyName;
         private readonly string _materialProperty = ColorBehaviour.TargetMaterialPropertyName;
+        private readonly string _spriteProperty = ColorBehaviour.TargetSpritePropertyName;
         private readonly string _materialIndexProperty = ColorBehaviour.MaterialIndexPropertyName;
         private readonly string _startProperty = ColorBehaviour.StartPropertyName;
         private readonly string _endProperty = ColorBehaviour.EndPropertyName;
@@ -119,6 +120,7 @@ namespace JK.Tweening
                 _propertiesToHide.Add (_rendererProperty);
                 _propertiesToHide.Add (_materialProperty);
                 _propertiesToHide.Add (_imageProperty);
+                _propertiesToHide.Add (_spriteProperty);
             }
             else
             {
@@ -127,12 +129,20 @@ namespace JK.Tweening
                     case ColorTarget.Image:
                         _propertiesToHide.Add (_rendererProperty);
                         _propertiesToHide.Add (_materialProperty);
+                        _propertiesToHide.Add (_spriteProperty);
                         break;
                     case ColorTarget.Material:
                         _propertiesToHide.Add (_rendererProperty);
                         _propertiesToHide.Add (_imageProperty);
+                        _propertiesToHide.Add (_spriteProperty);
                         break;
                     case ColorTarget.Renderer:
+                        _propertiesToHide.Add (_materialProperty);
+                        _propertiesToHide.Add (_imageProperty);
+                        _propertiesToHide.Add (_spriteProperty);
+                        break;
+                    case ColorTarget.SpriteRenderer:
+                        _propertiesToHide.Add (_rendererProperty);
                         _propertiesToHide.Add (_materialProperty);
                         _propertiesToHide.Add (_imageProperty);
                         break;
