@@ -112,6 +112,7 @@ namespace JK.Tweening
             }
 
             base.Stop ();
+            m_onCompleted.Invoke ();
         }
 
         public override void Restart ()
