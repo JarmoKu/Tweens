@@ -6,6 +6,7 @@ namespace JK.Tweening
     public class TransformTweenBehaviour : TweenBehaviourBase
     {
         #region PropertyNames for custom editor
+#if UNITY_EDITOR
         public static string ArcPeakPropertyName => nameof (m_arcPeakPosition);
         public static string TweenClassPropertyName => nameof (m_tweenClass);
         public static string TargetSelfPropertyName => nameof (m_targetSelf);
@@ -16,6 +17,7 @@ namespace JK.Tweening
         public static string TweenTypePropertyName => nameof (m_tweenType);
         public static string StartPropertyName => nameof (m_start);
         public static string EndPropertyName => nameof (m_end);
+#endif
         #endregion
 
         public void SetTweenClass (TweenClass tweenClass) => m_tweenClass = tweenClass;
@@ -122,55 +124,39 @@ namespace JK.Tweening
 
         private TweenBase GetTween ()
         {
-            switch (m_tweenClass)
+            return m_tweenClass switch
             {
-                case TweenClass.Move:
-                    return TargetTransform.MoveFromTo (StartPosition (), EndPosition (), Duration);
-                case TweenClass.Rotate:
-                    return TargetTransform.RotateFromTo (StartPosition (), EndPosition (), Duration);
-                case TweenClass.Scale:
-                    return TargetTransform.ScaleFromTo (StartPosition (), EndPosition (), Duration);
-                case TweenClass.Jump:
-                    return TargetTransform.JumpFromTo (StartPosition (), ArcTopPosition (), EndPosition (), Duration);
-                case TweenClass.PunchPosition:
-                    return TargetTransform.PunchPosition (EndPosition (), Duration, TweeningSpace);
-                case TweenClass.PunchRotation:
-                    return TargetTransform.PunchRotation (EndPosition (), Duration, TweeningSpace);
-                case TweenClass.PunchScale:
-                    return TargetTransform.PunchScale (EndPosition (), Duration);
-                default:
-                    return null;
-            }
+                TweenClass.Move => TargetTransform.MoveFromTo (StartPosition (), EndPosition (), Duration),
+                TweenClass.Rotate => TargetTransform.RotateFromTo (StartPosition (), EndPosition (), Duration),
+                TweenClass.Scale => TargetTransform.ScaleFromTo (StartPosition (), EndPosition (), Duration),
+                TweenClass.Jump => TargetTransform.JumpFromTo (StartPosition (), ArcTopPosition (), EndPosition (), Duration),
+                TweenClass.PunchPosition => TargetTransform.PunchPosition (EndPosition (), Duration, TweeningSpace),
+                TweenClass.PunchRotation => TargetTransform.PunchRotation (EndPosition (), Duration, TweeningSpace),
+                TweenClass.PunchScale => TargetTransform.PunchScale (EndPosition (), Duration),
+                _ => null,
+            };
         }
 
         private Vector3 StartPosition ()
         {
-            switch (TweenType)
+            return TweenType switch
             {
-                case TweenType.FromTo:
-                    return TweeningSpace.Matches (Space.World) ? StartVector : TargetTransform.InverseTransformPoint (StartVector);
-                case TweenType.From:
-                    return TweeningSpace.Matches (Space.World) ? StartVector : TargetTransform.InverseTransformPoint (StartVector);
-                case TweenType.To:
-                    return TargetTransform.GetPosition (TweeningSpace);
-                default:
-                    return Vector3.zero;
-            }
+                TweenType.FromTo => TweeningSpace.Matches (Space.World) ? StartVector : TargetTransform.InverseTransformPoint (StartVector),
+                TweenType.From => TweeningSpace.Matches (Space.World) ? StartVector : TargetTransform.InverseTransformPoint (StartVector),
+                TweenType.To => TargetTransform.GetPosition (TweeningSpace),
+                _ => Vector3.zero,
+            };
         }
 
         private Vector3 EndPosition ()
         {
-            switch (TweenType)
+            return TweenType switch
             {
-                case TweenType.FromTo:
-                    return TweeningSpace.Matches (Space.World) ? EndVector : TargetTransform.InverseTransformPoint (EndVector);
-                case TweenType.From:
-                    return TargetTransform.GetPosition (TweeningSpace);
-                case TweenType.To:
-                    return TweeningSpace.Matches (Space.World) ? EndVector : TargetTransform.InverseTransformPoint (EndVector);
-                default:
-                    return Vector3.zero;
-            }
+                TweenType.FromTo => TweeningSpace.Matches (Space.World) ? EndVector : TargetTransform.InverseTransformPoint (EndVector),
+                TweenType.From => TargetTransform.GetPosition (TweeningSpace),
+                TweenType.To => TweeningSpace.Matches (Space.World) ? EndVector : TargetTransform.InverseTransformPoint (EndVector),
+                _ => Vector3.zero,
+            };
         }
 
         private Vector3 ArcTopPosition ()
@@ -180,25 +166,17 @@ namespace JK.Tweening
 
         private Vector3 GetOriginalPosition ()
         {
-            switch (m_tweenClass)
+            return m_tweenClass switch
             {
-                case TweenClass.Move:
-                    return TargetTransform.GetPosition (TweeningSpace);
-                case TweenClass.Rotate:
-                    return TargetTransform.GetRotation (TweeningSpace);
-                case TweenClass.Scale:
-                    return TargetTransform.localPosition;
-                case TweenClass.Jump:
-                    return TargetTransform.GetPosition (TweeningSpace);
-                case TweenClass.PunchPosition:
-                    return TargetTransform.GetPosition (TweeningSpace);
-                case TweenClass.PunchRotation:
-                    return TargetTransform.GetRotation (TweeningSpace);
-                case TweenClass.PunchScale:
-                    return TargetTransform.localPosition;
-                default:
-                    return Vector3.zero;
-            }
+                TweenClass.Move => TargetTransform.GetPosition (TweeningSpace),
+                TweenClass.Rotate => TargetTransform.GetRotation (TweeningSpace),
+                TweenClass.Scale => TargetTransform.localPosition,
+                TweenClass.Jump => TargetTransform.GetPosition (TweeningSpace),
+                TweenClass.PunchPosition => TargetTransform.GetPosition (TweeningSpace),
+                TweenClass.PunchRotation => TargetTransform.GetRotation (TweeningSpace),
+                TweenClass.PunchScale => TargetTransform.localPosition,
+                _ => Vector3.zero,
+            };
         }
     }
 }
