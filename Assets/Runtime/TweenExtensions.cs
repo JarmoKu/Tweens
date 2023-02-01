@@ -353,6 +353,28 @@ namespace JK.Tweening
         }
         #endregion
 
+        #region
+        public static LightColorTween ColorFromTo (this Light light, Color start, Color end, float duration)
+        {
+            return new LightColorTween (light, start, end, duration);
+        }
+
+        public static LightColorTween ColorFrom (this Light light, Color start, float duration)
+        {
+            return new LightColorTween (light, start, light.color, duration);
+        }
+
+        public static LightColorTween ColorTo (this Light light, Color end, float duration)
+        {
+            return new LightColorTween (light, light.color, end, duration);
+        }
+
+        public static LightColorTween ColorThroughGradient (this Light light, Gradient gradient, float duration)
+        {
+            return new LightColorTween (light, gradient, duration);
+        }
+        #endregion
+
         #region Enums
         public static bool Matches (this LoopType easeType, LoopType comparison)
         {

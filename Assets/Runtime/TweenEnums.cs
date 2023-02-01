@@ -5,7 +5,8 @@
         Image,
         Renderer,
         Material,
-        SpriteRenderer
+        SpriteRenderer,
+        Light
     }
 
     public enum LoopType

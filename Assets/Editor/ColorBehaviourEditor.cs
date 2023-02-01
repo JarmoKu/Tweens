@@ -14,6 +14,7 @@ namespace JK.Tweening
         private readonly string _imageProperty = ColorBehaviour.TargetImagePropertyName;
         private readonly string _materialProperty = ColorBehaviour.TargetMaterialPropertyName;
         private readonly string _spriteProperty = ColorBehaviour.TargetSpritePropertyName;
+        private readonly string _lightProperty = ColorBehaviour.TargetlightPropertyName;
         private readonly string _materialIndexProperty = ColorBehaviour.MaterialIndexPropertyName;
         private readonly string _startProperty = ColorBehaviour.StartPropertyName;
         private readonly string _endProperty = ColorBehaviour.EndPropertyName;
@@ -121,6 +122,7 @@ namespace JK.Tweening
                 _propertiesToHide.Add (_materialProperty);
                 _propertiesToHide.Add (_imageProperty);
                 _propertiesToHide.Add (_spriteProperty);
+                _propertiesToHide.Add (_lightProperty);
             }
             else
             {
@@ -130,21 +132,31 @@ namespace JK.Tweening
                         _propertiesToHide.Add (_rendererProperty);
                         _propertiesToHide.Add (_materialProperty);
                         _propertiesToHide.Add (_spriteProperty);
+                        _propertiesToHide.Add (_lightProperty);
                         break;
                     case ColorTarget.Material:
                         _propertiesToHide.Add (_rendererProperty);
                         _propertiesToHide.Add (_imageProperty);
                         _propertiesToHide.Add (_spriteProperty);
+                        _propertiesToHide.Add (_lightProperty);
                         break;
                     case ColorTarget.Renderer:
                         _propertiesToHide.Add (_materialProperty);
                         _propertiesToHide.Add (_imageProperty);
                         _propertiesToHide.Add (_spriteProperty);
+                        _propertiesToHide.Add (_lightProperty);
                         break;
                     case ColorTarget.SpriteRenderer:
                         _propertiesToHide.Add (_rendererProperty);
                         _propertiesToHide.Add (_materialProperty);
                         _propertiesToHide.Add (_imageProperty);
+                        _propertiesToHide.Add (_lightProperty);
+                        break;
+                    case ColorTarget.Light:
+                        _propertiesToHide.Add (_rendererProperty);
+                        _propertiesToHide.Add (_materialProperty);
+                        _propertiesToHide.Add (_imageProperty);
+                        _propertiesToHide.Add (_spriteProperty);
                         break;
                 }
             }
