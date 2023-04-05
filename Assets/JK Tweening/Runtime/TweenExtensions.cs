@@ -376,54 +376,54 @@ namespace JK.Tweening
         #endregion
 
         #region Enums
-        public static bool Matches (this LoopType easeType, LoopType comparison)
+        public static bool Matches (this LoopType comparison1, LoopType comparison2)
         {
-            return (int)easeType == (int)comparison;
+            return (int)comparison1 == (int)comparison2;
         }
 
-        public static bool Matches (this TweenClass easeType, TweenClass comparison)
+        public static bool Matches (this TweenClass comparison1, TweenClass comparison2)
         {
-            return (int)easeType == (int)comparison;
+            return (int)comparison1 == (int)comparison2;
         }
 
-        public static bool Matches (this TweenType easeType, TweenType comparison)
+        public static bool Matches (this TweenType comparison1, TweenType comparison2)
         {
-            return (int)easeType == (int)comparison;
+            return (int)comparison1 == (int)comparison2;
         }
 
-        public static bool Matches (this ColorTarget easeType, ColorTarget comparison)
+        public static bool Matches (this ColorTarget comparison1, ColorTarget comparison2)
         {
-            return (int)easeType == (int)comparison;
+            return (int)comparison1 == (int)comparison2;
         }
 
-        internal static bool Matches (this Space easeType, Space comparison)
+        internal static bool Matches (this Space comparison1, Space comparison2)
         {
-            return (int)easeType == (int)comparison;
+            return (int)comparison1 == (int)comparison2;
         }
 
-        internal static bool Matches (this ImageTweenType easeType, ImageTweenType comparison)
+        internal static bool Matches (this ImageTweenType comparison1, ImageTweenType comparison2)
         {
-            return (int)easeType == (int)comparison;
+            return (int)comparison1 == (int)comparison2;
         }
 
-        internal static bool Matches (this NumberTweens easeType, NumberTweens comparison)
+        internal static bool Matches (this NumberTweens comparison1, NumberTweens comparison2)
         {
-            return (int)easeType == (int)comparison;
+            return (int)comparison1 == (int)comparison2;
         }
 
-        internal static bool Matches (this PlayOn easeType, PlayOn comparison)
+        internal static bool Matches (this PlayOn comparison1, PlayOn comparison2)
         {
-            return (int)easeType == (int)comparison;
+            return (int)comparison1 == (int)comparison2;
         }
 
-        internal static bool Matches (this PunchType easeType, PunchType comparison)
+        internal static bool Matches (this PunchType comparison1, PunchType comparison2)
         {
-            return (int)easeType == (int)comparison;
+            return (int)comparison1 == (int)comparison2;
         }
 
-        internal static bool Matches (this EaseType easeType, EaseType comparison)
+        internal static bool Matches (this EaseType comparison1, EaseType comparison2)
         {
-            return (int)easeType == (int)comparison;
+            return (int)comparison1 == (int)comparison2;
         }
         #endregion
 
