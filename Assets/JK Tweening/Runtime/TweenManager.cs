@@ -16,6 +16,8 @@ namespace JK.Tweening
             if (UpdateHasBeenCalledThisFrame ())
                 return;
 
+            LatestFrameCount = Time.frameCount;
+
             foreach (var tween in _tweens)
             {
                 if (tween.IsPlaying)
@@ -66,7 +68,6 @@ namespace JK.Tweening
                 return true;
             }
 
-            LatestFrameCount = Time.frameCount;
             return false;
         }
     }
