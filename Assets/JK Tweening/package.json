@@ -1,0 +1,7 @@
+{
+  "name": "com.JarmoKu.Tweens",
+  "version": "0.0.1",
+  "displayName": "JK Tweens",
+  "description": "Lightweight and simple animations for Unity",
+  "unity": "2021.3.13"
+}
