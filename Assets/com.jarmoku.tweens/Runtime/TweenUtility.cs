@@ -6,6 +6,7 @@ namespace JK.Tweening
     {
         public static float Interpolate (float progress, float duration, LoopType loopType, EaseType easeType)
         {
+            //System.Enum.IsDefined (loopType.GetType (), loopType);
             var normalizedProgress = 0f;
             switch (loopType)
             {
