@@ -18,10 +18,10 @@ namespace JK.Tweening
 
             LatestFrameCount = Time.frameCount;
 
-            foreach (var tween in _tweens)
+            for (int i = 0; i < _tweens.Count; i++)
             {
-                if (tween.IsPlaying)
-                    tween.Update (Time.deltaTime * CustomTimeScale);
+                if (_tweens[i].IsPlaying)
+                    _tweens[i].Update (Time.deltaTime * CustomTimeScale);
             }
         }
 

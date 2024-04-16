@@ -96,9 +96,5 @@
         EaseInBounce,
         EaseOutBounce,
         EaseInOutBounce,
-        Spike,
-        InPunch,
-        OutPunch,
-        Shake
     }
 }

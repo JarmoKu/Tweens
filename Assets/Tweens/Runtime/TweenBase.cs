@@ -71,16 +71,16 @@ namespace JK.Tweening
 
 		protected bool TryProgress (float deltaTime, out bool completedLoop)
 		{
-            completedLoop = _totalProgress > _duration * (_loopsDone + 1);
-
-			if (_loopDelayLeft > 0f)
+            if (_loopDelayLeft > 0f)
 			{
-				_loopDelayLeft -= deltaTime;
+                completedLoop = false;
+                _loopDelayLeft -= deltaTime;
 				return false;
 			}
 
 			Progress (deltaTime);
-
+            completedLoop = _totalProgress >= _duration * (_loopsDone + 1);
+            
             if (completedLoop) 
                 OnLoopCompleted ();
 

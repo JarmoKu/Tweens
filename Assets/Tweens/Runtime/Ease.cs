@@ -39,10 +39,6 @@ namespace JK.Tweening
                 case EaseType.EaseInBounce: return EaseInBounce (value);
                 case EaseType.EaseOutBounce: return EaseOutBounce (value);
                 case EaseType.EaseInOutBounce: return EaseInOutBounce (value);
-                case EaseType.Spike: return Spike (value);
-                case EaseType.InPunch: return InPunch (value);
-                case EaseType.OutPunch: return OutPunch (value);
-                case EaseType.Shake: return Shake (value);
                 default:
                     Debug.LogError ($"No Ease Type {easeType} Found");
                     return -1f;
@@ -117,8 +113,15 @@ namespace JK.Tweening
 
         public static float EaseInElastic (float value) => 1f - EaseOutElastic (1f - value);
 
-        public static float EaseOutElastic (float value) =>
-            (float)(Mathf.Pow (2f, -10f * value) * Mathf.Sin ((value - 0.3f / 4f) * (2f * Mathf.PI) / 0.3f) + 1f);
+        public static float EaseOutElastic (float value)
+        {
+            if (Mathf.Abs (value - 0f) < 0.001f) 
+                return 0f;
+            else if (Mathf.Abs (value - 1f) < 0.001f) 
+                return 1f;
+
+            return (float)(Mathf.Pow (2f, -10f * value) * Mathf.Sin ((value - 0.3f / 4f) * (2f * Mathf.PI) / 0.3f) + 1f);
+        }
 
         public static float EaseInOutElastic (float value)
         {
@@ -145,13 +148,5 @@ namespace JK.Tweening
 
         public static float EaseInOutBounce (float value) =>
             value < 0.5f ? (1f - EaseOutBounce (1f - 2f * value)) / 2f : (1f + EaseOutBounce (2f * value - 1f)) / 2f;
-
-        public static float Spike (float t) => t < .5f ? EaseInQuad (t * .5f) * 2f : EaseInQuad ((1f - t) * .5f) * 2f;
-
-        public static float InPunch (float t) => t < .1f ? EaseInQuad (t * .1f) * 2f : EaseInQuad ((1f - t) * .9f) * 2f;
-
-        public static float OutPunch (float t) => t < .9f ? EaseInQuad (t * .9f) * 2f : EaseInQuad ((1f - t) * .1f) * 2f;
-
-        public static float Shake (float t) => (t + (Mathf.Cos ((t - t) * Mathf.PI) * t) / 2f);
     }
 }
