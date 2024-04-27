@@ -101,6 +101,7 @@ namespace JK.Tweening
         {
             var endPosition = transform.GetPosition (space);
             var peak = Vector3.Lerp (start, endPosition, 0.5f) + up.normalized * (height * 2f);
+
             return new JumpTween (transform, start, peak, endPosition, duration, space);
         }
 
@@ -201,51 +202,51 @@ namespace JK.Tweening
         #endregion
 
         #region Material
-        public static SharedMaterialColorTween ColorFromTo (this Material image, Color start, Color end, float duration)
+        public static SharedMaterialColorTween ColorFromTo (this Material material, Color start, Color end, float duration)
         {
-            return new SharedMaterialColorTween (image, start, end, duration);
+            return new SharedMaterialColorTween (material, start, end, duration);
         }
 
-        public static SharedMaterialColorTween ColorFrom (this Material image, Color start, float duration)
+        public static SharedMaterialColorTween ColorFrom (this Material material, Color start, float duration)
         {
-            return new SharedMaterialColorTween (image, start, image.color, duration);
+            return new SharedMaterialColorTween (material, start, material.color, duration);
         }
 
-        public static SharedMaterialColorTween ColorTo (this Material image, Color end, float duration)
+        public static SharedMaterialColorTween ColorTo (this Material material, Color end, float duration)
         {
-            return new SharedMaterialColorTween (image, image.color, end, duration);
+            return new SharedMaterialColorTween (material, material.color, end, duration);
         }
 
-        public static SharedMaterialColorTween ColorThroughGradient (this Material image, Gradient gradient, float duration)
+        public static SharedMaterialColorTween ColorThroughGradient (this Material material, Gradient gradient, float duration)
         {
-            return new SharedMaterialColorTween (image, gradient, duration);
+            return new SharedMaterialColorTween (material, gradient, duration);
         }
 
-        public static SharedMaterialColorTween AlphaFromTo (this Material image, float start, float end, float duration)
+        public static SharedMaterialColorTween AlphaFromTo (this Material material, float start, float end, float duration)
         {
-            var startColor = image.color;
+            var startColor = material.color;
             startColor.a = start;
 
-            var endColor = image.color;
+            var endColor = material.color;
             endColor.a = end;
 
-            return new SharedMaterialColorTween (image, startColor, endColor, duration);
+            return new SharedMaterialColorTween (material, startColor, endColor, duration);
         }
 
-        public static SharedMaterialColorTween AlphaFrom (this Material image, float start, float duration)
+        public static SharedMaterialColorTween AlphaFrom (this Material material, float start, float duration)
         {
-            var startColor = image.color;
+            var startColor = material.color;
             startColor.a = start;
 
-            return new SharedMaterialColorTween (image, startColor, image.color, duration);
+            return new SharedMaterialColorTween (material, startColor, material.color, duration);
         }
 
-        public static SharedMaterialColorTween AlphaTo (this Material image, float end, float duration)
+        public static SharedMaterialColorTween AlphaTo (this Material material, float end, float duration)
         {
-            var endColor = image.color;
+            var endColor = material.color;
             endColor.a = end;
 
-            return new SharedMaterialColorTween (image, image.color, endColor, duration);
+            return new SharedMaterialColorTween (material, material.color, endColor, duration);
         }
         #endregion
 

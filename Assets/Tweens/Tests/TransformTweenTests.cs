@@ -126,6 +126,91 @@ namespace JK.Tweening.Tests
             Assert.That (TestUtilities.TweenWasMeantToFinishNow (startTime, TweenDuration));
         }
 
+        [Test]
+        [TestCase (TweenType.From, Space.World)]
+        [TestCase (TweenType.From, Space.Self)]
+        [TestCase (TweenType.To, Space.World)]
+        [TestCase (TweenType.To, Space.Self)]
+        [TestCase (TweenType.FromTo, Space.World)]
+        [TestCase (TweenType.FromTo, Space.Self)]
+        public void JumpTween_PassesCorrectPeakAndReachesTarget_InSetDuration (TweenType tweenType, Space space)
+        {
+            var jumpHeight = 5f;
+            var positionOne = space == Space.World ? _testChild.position : _testChild.localPosition;
+            var peakPosition = positionOne + new Vector3 (2.5f, 5f, 0f);
+            var positionTwo = positionOne + new Vector3 (5f, 0f, 0f);
+
+            var firstStartPosition = tweenType.Matches (TweenType.From) ? positionTwo : positionOne;
+            var firstTargetPosition = tweenType.Matches (TweenType.From) ? positionOne : positionTwo;
+
+            Tween = TestUtilities.GetJumpTweenType (
+                tweenType, _testChild, firstStartPosition, peakPosition, firstTargetPosition, TweenDuration, space);
+
+            Tween.Play ();
+            Tween.Update (TweenDuration / 2f);
+            Assert.That ((space == Space.World ? _testChild.position : _testChild.localPosition) == peakPosition);
+            Tween.Update (TweenDuration / 2f);
+            Assert.That ((space == Space.World ? _testChild.position : _testChild.localPosition) == firstTargetPosition);
+
+            var secondStartPosition = positionTwo;
+            var secondTargetPosition = positionOne;
+
+            Tween = TestUtilities.GetJumpTweenType (
+                tweenType, _testChild, secondStartPosition, jumpHeight, secondTargetPosition, TweenDuration, Vector3.up, space);
+
+            Tween.Play ();
+            Tween.Update (TweenDuration / 2f);
+            Assert.That ((space == Space.World ? _testChild.position : _testChild.localPosition) == peakPosition);
+            Tween.Update (TweenDuration / 2f);
+            Assert.That ((space == Space.World ? _testChild.position : _testChild.localPosition) == secondTargetPosition);
+        }
+
+        [Test]
+        [TestCase (Space.Self)]
+        [TestCase (Space.World)]
+        public void PunchPositionTween_ChangesPositionCorrectly_InSetDuration (Space space)
+        {
+            var startPosition = space == Space.World ? _testChild.position : _testChild.localPosition;
+            var targetPosition = new Vector3 (0f, 3f, 0f);
+            Tween = _testChild.PunchPosition (targetPosition, TweenDuration, space);
+            Tween.Play ();
+
+            Tween.Update (0.5f);
+            Debug.Assert ((space == Space.World ? _testChild.position : _testChild.localPosition) == targetPosition);
+            Tween.Update (1f);
+            Debug.Assert ((space == Space.World ? _testChild.position : _testChild.localPosition) == startPosition);
+        }
+
+        [Test]
+        [TestCase (Space.Self)]
+        [TestCase (Space.World)]
+        public void PunchRotationTween_ChangesRotationCorrectly_InSetDuration (Space space)
+        {
+            var startRotation = space == Space.World ? _testChild.eulerAngles : _testChild.localEulerAngles;
+            var targetRotation = new Vector3 (0f, 3f, 0f);
+            Tween = _testChild.PunchRotation (targetRotation, TweenDuration, space);
+            Tween.Play ();
+
+            Tween.Update (0.5f);
+            Debug.Assert ((space == Space.World ? _testChild.eulerAngles : _testChild.localEulerAngles) == targetRotation);
+            Tween.Update (1f);
+            Debug.Assert ((space == Space.World ? _testChild.eulerAngles : _testChild.localEulerAngles) == startRotation);
+        }
+
+        [Test]
+        public void PunchScaleTween_ChangesScaleCorrectly_InSetDuration ()
+        {
+            var startScale = _testChild.localScale;
+            var targetScale = new Vector3 (1f, 3f, 1f);
+            Tween = _testChild.PunchScale (targetScale, TweenDuration);
+            Tween.Play ();
+
+            Tween.Update (0.5f);
+            Debug.Assert (_testChild.localScale == targetScale);
+            Tween.Update (1f);
+            Debug.Assert (_testChild.localScale == startScale);
+        }
+
         [TearDown]
         public void TearDown ()
         {

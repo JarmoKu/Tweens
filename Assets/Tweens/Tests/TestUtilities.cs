@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 namespace JK.Tweening.Tests
 {
@@ -59,6 +60,138 @@ namespace JK.Tweening.Tests
                 TweenType.FromTo => transformToTween.ScaleFromTo (start, end, duration),
                 TweenType.From => transformToTween.ScaleFrom (start, duration),
                 TweenType.To => transformToTween.ScaleTo (end, duration),
+                _ => default,
+            };
+        }
+
+        public static JumpTween GetJumpTweenType (
+            TweenType tweenType, Transform transformToTween, Vector3 start, Vector3 peak, Vector3 end, float duration, Space space)
+        {
+            return tweenType switch
+            {
+                TweenType.FromTo => transformToTween.JumpFromTo (start, peak, end, duration, space),
+                TweenType.From => transformToTween.JumpFrom (start, peak, duration, space),
+                TweenType.To => transformToTween.JumpTo (peak, end, duration, space),
+                _ => default,
+            };
+        }
+
+        public static JumpTween GetJumpTweenType (
+            TweenType tweenType, Transform transformToTween, Vector3 start, float height, Vector3 end, float duration, Vector3 up, Space space)
+        {
+            return tweenType switch
+            {
+                TweenType.FromTo => transformToTween.JumpFromTo (start, end, height, duration, up, space),
+                TweenType.From => transformToTween.JumpFrom (start, height, duration, up, space),
+                TweenType.To => transformToTween.JumpTo (end, height, duration, up, space),
+                _ => default,
+            };
+        }
+
+        public static ImageColorTween GetImageColorTween (
+            Image targetImage, ImageTweenType tweenType, Color start, Color end, float duration)
+        {
+            return tweenType switch
+            {
+                ImageTweenType.FromTo => targetImage.ColorFromTo (start, end, duration),
+                ImageTweenType.From => targetImage.ColorFrom (start, duration),
+                ImageTweenType.To => targetImage.ColorTo (end, duration),
+                _ => default,
+            };
+        }
+
+        public static ImageColorTween GetImageAlphaTween (
+            Image targetImage, ImageTweenType tweenType, float start, float end, float duration)
+        {
+            return tweenType switch
+            {
+                ImageTweenType.FromTo => targetImage.AlphaFromTo (start, end, duration),
+                ImageTweenType.From => targetImage.AlphaFrom (start, duration),
+                ImageTweenType.To => targetImage.AlphaTo (end, duration),
+                _ => default,
+            };
+        }
+
+        public static SharedMaterialColorTween GetSharedMaterialColorTween (
+            Material targetMaterial, ImageTweenType tweenType, Color start, Color end, float duration)
+        {
+            return tweenType switch
+            {
+                ImageTweenType.FromTo => targetMaterial.ColorFromTo (start, end, duration),
+                ImageTweenType.From => targetMaterial.ColorFrom (start, duration),
+                ImageTweenType.To => targetMaterial.ColorTo (end, duration),
+                _ => default,
+            };
+        }
+
+        public static SharedMaterialColorTween GetSharedMaterialAlphaTween (
+            Material targetMaterial, ImageTweenType tweenType, float start, float end, float duration)
+        {
+            return tweenType switch
+            {
+                ImageTweenType.FromTo => targetMaterial.AlphaFromTo (start, end, duration),
+                ImageTweenType.From => targetMaterial.AlphaFrom (start, duration),
+                ImageTweenType.To => targetMaterial.AlphaTo (end, duration),
+                _ => default,
+            };
+        }
+
+        public static RendererColorTween GetRendererColorTween (
+            Renderer targetRenderer, ImageTweenType tweenType, int materialIndex, Color start, Color end, float duration)
+        {
+            return tweenType switch
+            {
+                ImageTweenType.FromTo => targetRenderer.ColorFromTo (materialIndex, start, end, duration),
+                ImageTweenType.From => targetRenderer.ColorFrom (materialIndex, start, duration),
+                ImageTweenType.To => targetRenderer.ColorTo (materialIndex, end, duration),
+                _ => default,
+            };
+        }
+
+        public static RendererColorTween GetRendererAlphaTween (
+            Renderer targetRenderer, ImageTweenType tweenType, int materialIndex, float start, float end, float duration)
+        {
+            return tweenType switch
+            {
+                ImageTweenType.FromTo => targetRenderer.AlphaFromTo (materialIndex, start, end, duration),
+                ImageTweenType.From => targetRenderer.AlphaFrom (materialIndex, start, duration),
+                ImageTweenType.To => targetRenderer.AlphaTo (materialIndex, end, duration),
+                _ => default,
+            };
+        }
+
+        public static SpriteColorTween GetSpriteColorTween (
+            SpriteRenderer targetSprite, ImageTweenType tweenType, Color start, Color end, float duration)
+        {
+            return tweenType switch
+            {
+                ImageTweenType.FromTo => targetSprite.ColorFromTo (start, end, duration),
+                ImageTweenType.From => targetSprite.ColorFrom (start, duration),
+                ImageTweenType.To => targetSprite.ColorTo (end, duration),
+                _ => default,
+            };
+        }
+
+        public static SpriteColorTween GetSpriteAlphaTween (
+            SpriteRenderer targetSprite, ImageTweenType tweenType, float start, float end, float duration)
+        {
+            return tweenType switch
+            {
+                ImageTweenType.FromTo => targetSprite.AlphaFromTo (start, end, duration),
+                ImageTweenType.From => targetSprite.AlphaFrom (start, duration),
+                ImageTweenType.To => targetSprite.AlphaTo (end, duration),
+                _ => default,
+            };
+        }
+
+        public static LightColorTween GetLightColorTween (
+            Light targetLight, ImageTweenType tweenType, Color start, Color end, float duration)
+        {
+            return tweenType switch
+            {
+                ImageTweenType.FromTo => targetLight.ColorFromTo (start, end, duration),
+                ImageTweenType.From => targetLight.ColorFrom (start, duration),
+                ImageTweenType.To => targetLight.ColorTo (end, duration),
                 _ => default,
             };
         }

@@ -55,18 +55,18 @@ namespace JK.Tweening
                 var value = Mathf.Lerp (_startValue, _endValue, _normalizedProgress);
                 if (_interval == default)
                 {
-                    if (_callback != null)
-                        _callback?.Invoke (value);
+                    _callback?.Invoke (value);
                 }
                 else
                 {
-                    var nearestMultipleOfInterval = Mathf.FloorToInt (value / _interval) * _interval;
-                    if (nearestMultipleOfInterval != _intervalProgress)
+                    var progressPastLastInterval = 
+                        Math.Abs (_startValue - _endValue) * _normalizedProgress >= _intervalProgress + _interval;
+                    
+                    if (progressPastLastInterval)
                     {
-                        _intervalProgress = nearestMultipleOfInterval;
+                        _intervalProgress += _interval;
 
-                        if (_callback != null)
-                            _callback?.Invoke (_intervalProgress);
+                        _callback?.Invoke (value);
                     }
                 }
             }

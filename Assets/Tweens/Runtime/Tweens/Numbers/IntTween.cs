@@ -47,7 +47,7 @@ namespace JK.Tweening
             {
                 var value = Mathf.Lerp (_startValue, _endValue, _normalizedProgress);
 
-                if (Mathf.Abs (value - _startValue) > _intervalProgress + _interval)
+                if (Math.Abs (value - _startValue) >= _intervalProgress + _interval)
                 {
                     _intervalProgress += _interval;
 
